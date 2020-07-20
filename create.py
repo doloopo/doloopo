@@ -29,5 +29,5 @@ window.location.href="%s";
 
 print(wrt)
 
-with open(shortname, 'w') as file_object:
+with open(("%s.html" % shortname), 'w') as file_object:
     file_object.write(wrt)
