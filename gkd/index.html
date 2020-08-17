@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+    <!--
+    _____                   _      
+  / ____|                 | |     
+ | |  __  ___   ___   __ _| | ___ 
+ | | |_ |/ _ \ / _ \ / _` | |/ _ \
+ | |__| | (_) | (_) | (_| | |  __/
+  \_____|\___/ \___/ \__, |_|\___|
+                      __/ |       
+                谷歌 |___/        
+                     
+    不看源码的是lsp
+    看源码的是有头脑的lsp
+    没错说的就是你
+
+    'Google' Present, 2020
+
+    PS：Javascript 傻逼语言
+    PPS：这随机算法怎么种子一样东西不一样
+    -->
+
+    <head>
+        <meta charset="utf-8" />
+        <script>
+
+            function myRandom(seed, min, max){
+                seed = (seed * 9301 + 49297) % 233280;
+
+                return parseInt((seed / 233280.0 * 10000000) % (max - min + 1) + min);
+            }
+
+            function Generate(){
+                for (var i=50;i>=1;i--)
+                { 
+                    document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, i) + "<br />");
+                }
+            }
+
+            function Test3(){
+                document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, 2) + "<br />");
+                document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, 100) + "<br />");
+                document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, 100) + "<br />");
+                document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, 2) + "<br />");
+            }
+
+            //把图画上canvas的函数
+            function DrawOnCanvas(){
+
+                //document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);
+
+                var c=document.getElementById("myCanvas");
+                var ctx=c.getContext("2d");
+                var img=document.getElementById("tulip");
+
+                c.style="Width: " + img.clientWidth + "px; Height: " + img.clientHeight + "px"; 
+                c.width = img.naturalWidth;
+                c.height = img.naturalHeight;
+                ctx.clearRect(0,0,c.width,c.height);  
+                ctx.drawImage(img, 0, 0, c.width, c.height);
+            }
+
+            function Download(srlink){
+                var link = document.createElement('a');
+                //设置下载的文件名
+                var myDate = new Date();
+                link.download = "Image" + myDate.toLocaleString( ) + ".png";
+                link.style.display = 'none';
+                //设置下载路径
+                link.href = srlink;
+                //触发点击
+                document.body.appendChild(link);
+                link.click();
+                //移除节点
+                document.body.removeChild(link);
+            }
+
+            //交换第 A 行与第 B 行，从第 1 行开始
+            function SwapCanvasLines(A, B){
+                var c=document.getElementById("myCanvas");
+                var ctx=c.getContext("2d");
+
+                var dataA = ctx.getImageData(0, A - 1, c.clientWidth - 1, 1);
+                var dataB = ctx.getImageData(0, B - 1, c.clientWidth - 1, 1);
+
+                ctx.putImageData(dataB, 0, A - 1);
+                ctx.putImageData(dataA, 0, B - 1);
+            }
+
+            function Enc(){
+                var c=document.getElementById("myCanvas");
+
+                for(var j = 0; j < document.getElementById("count").value; j++){
+                    for (var i=c.clientHeight;i>=1;i--)
+                    { 
+                        SwapCanvasLines(myRandom(document.getElementById('key').value, 1, i), i);
+                    }
+                }
+            }
+
+            function Dec(){
+                var c = document.getElementById("myCanvas");
+
+                for(var j = 0; j < document.getElementById("count").value; j++){
+                    for (var i=1;i<=c.clientHeight;i++)
+                    { 
+                        SwapCanvasLines(myRandom(document.getElementById('key').value, 1, i), i);
+                    }
+                }
+            }
+        </script>
+    </head>
+
+    <body>
+        <br />
+        <h1 style="text-align: center;">图片加密/解密工具</h1>
+        <p style="text-align: center;">首先选择图片文件，再依次点击载入图片、绘制图片<br/>就可以使用加密、解密功能啦！</p>
+        
+        <div style="text-align: center;">
+            <input id="laFile" type="file" accept="image/*"></input>
+            <button type=button onclick='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);'>载入图片</button>
+            <button type=button onclick="DrawOnCanvas()">绘制图片</button>
+        </div>
+
+        <div style="margin:auto; width: 80vw">
+            <p>原图：</p>
+            <image id="tulip" src=""></image>
+            <br/>
+
+            <p>结果：</p>
+            <canvas id="myCanvas"></canvas>
+        </div>
+        <br />
+
+        <div style="margin:auto; width:80vw; text-align: center;">
+        </br>
+        <input type=text id="key" placeholder="输入种子" value="74751"></input>
+        <input type=text id="count" placeholder="加密次数" value="5"></input>
+        <button type=button onclick="Enc()">加密</button>
+        <button type=button onclick="Dec()">解密</button>
+        <button type=button onclick="Download(document.getElementById('myCanvas').toDataURL('image/png'));">将结果存为PNG</button>
+
+
+        <hr />
+        <h3>Debugging</h3>
+        <button type=button onclick="Generate()">Generate</button>
+        <button type=button onclick="Test3()">Test3</button>
+        <button type=button onclick="SwapCanvasLines(1, 20);">TestSwap</button>
+        <p id="debug">Test Label (id="debug") Output Here<br /></p>
+
+        <p style="color: gray;">'Google' Present, 2020</p>
+        </div>
+    </body>
+</html>
