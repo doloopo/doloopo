@@ -107,7 +107,13 @@
                     }
                 }
             }
+
         </script>
+
+        
+        <style>
+            div {margin:auto; width:80vw; text-align: center;}
+        </style>
     </head>
 
     <body>
@@ -115,13 +121,13 @@
         <h1 style="text-align: center;">图片加密/解密工具</h1>
         <p style="text-align: center;">首先选择图片文件，再依次点击载入图片、绘制图片<br/>就可以使用加密、解密功能啦！</p>
         
-        <div style="text-align: center;">
+        <div>
             <input id="laFile" type="file" accept="image/*"></input>
             <button type=button onclick='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);'>载入图片</button>
             <button type=button onclick="DrawOnCanvas()">绘制图片</button>
         </div>
 
-        <div style="margin:auto; width: 80vw">
+        <div style="text-align:left">
             <p>原图：</p>
             <image id="tulip" src=""></image>
             <br/>
@@ -131,23 +137,33 @@
         </div>
         <br />
 
-        <div style="margin:auto; width:80vw; text-align: center;">
-        </br>
-        <input type=text id="key" placeholder="输入种子" value="74751"></input>
-        <input type=text id="count" placeholder="加密次数" value="5"></input>
-        <button type=button onclick="Enc()">加密</button>
-        <button type=button onclick="Dec()">解密</button>
-        <button type=button onclick="Download(document.getElementById('myCanvas').toDataURL('image/png'));">将结果存为PNG</button>
-
+        <div>
+            </br>
+            <input type=text id="key" placeholder="输入种子" value="74751"></input>
+            <input type=text id="count" placeholder="加密次数" value="5"></input>
+            <button type=button onclick="Enc()">加密</button>
+            <button type=button onclick="Dec()">解密</button>
+            <button type=button onclick="Download(document.getElementById('myCanvas').toDataURL('image/png'));">将结果存为PNG</button>
+        </div>
 
         <hr />
-        <h3>Debugging</h3>
-        <button type=button onclick="Generate()">Generate</button>
-        <button type=button onclick="Test3()">Test3</button>
-        <button type=button onclick="SwapCanvasLines(1, 20);">TestSwap</button>
-        <p id="debug">Test Label (id="debug") Output Here<br /></p>
 
-        <p style="color: gray;">'Google' Present, 2020</p>
+        <div>
+            <button onclick="document.getElementById('debug').style.display = document.getElementById('debug').style.display == 'none' ? 'block': 'none'">Show / Hide Debugging Menu</button>
+        </div>
+
+        <div id="debug" style="display:none; background-color:bisque">
+            <br />
+            <h3>Debugging</h3>
+            <button type=button onclick="Generate()">Generate</button>
+            <button type=button onclick="Test3()">Test3</button>
+            <button type=button onclick="SwapCanvasLines(1, 20);">TestSwap</button>
+            <p id="debug">Test Label (id="debug") Output Here<br /></p>
+            <br />
+        </div>
+
+        <div>
+            <p style="color: gray;">'Google' Present, 2020</p>
         </div>
     </body>
 </html>
