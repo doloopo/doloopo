@@ -16,6 +16,7 @@
     'Google' Present, 2020
 
     PS：Javascript 傻逼语言
+    PPS：QQ傻逼压图
     -->
 
     <head>
@@ -80,13 +81,13 @@
                 download(document.getElementById('myCanvas').toDataURL('image/png'), "Image" + myDate.toLocaleString( ) + ".png");
             }
 
-            //交换第 A 行与第 B 行，从第 1 行开始
-            function SwapCanvasLines(A, B){
+            //交换第 A 行与第 B 行，从第 1 行开始，行高为 deltah
+            function SwapCanvasLines(A, B, deltah){
                 var c=document.getElementById("myCanvas");
                 var ctx=c.getContext("2d");
 
-                var dataA = ctx.getImageData(0, A - 1, c.clientWidth - 1, 1);
-                var dataB = ctx.getImageData(0, B - 1, c.clientWidth - 1, 1);
+                var dataA = ctx.getImageData(0, A - 1, c.clientWidth - 1, deltah);
+                var dataB = ctx.getImageData(0, B - 1, c.clientWidth - 1, deltah);
 
                 ctx.putImageData(dataB, 0, A - 1);
                 ctx.putImageData(dataA, 0, B - 1);
@@ -94,22 +95,24 @@
 
             function Enc(){
                 var c=document.getElementById("myCanvas");
+                var dh = document.getElementById("deltah").value;
 
                 for(var j = 0; j < document.getElementById("count").value; j++){
-                    for (var i=c.clientHeight;i>=1;i--)
+                    for (var i=parseInt((c.clientHeight-dh+1)/dh);i>=1;i--)
                     { 
-                        SwapCanvasLines(myRandom(document.getElementById('key').value, 1, i), i);
+                        SwapCanvasLines(myRandom(document.getElementById('key').value, 1, i)*dh, i*dh, dh);
                     }
                 }
             }
 
             function Dec(){
                 var c = document.getElementById("myCanvas");
+                var dh = document.getElementById("deltah").value;
 
                 for(var j = 0; j < document.getElementById("count").value; j++){
-                    for (var i=1;i<=c.clientHeight;i++)
+                    for (var i=1;i<=parseInt((c.clientHeight-dh+1)/dh);i++)
                     { 
-                        SwapCanvasLines(myRandom(document.getElementById('key').value, 1, i), i);
+                        SwapCanvasLines(myRandom(document.getElementById('key').value, 1, i)*dh, i*dh, dh);
                     }
                 }
             }
@@ -147,6 +150,7 @@
             </br>
             <input type=text id="key" placeholder="输入种子" value="74751"></input>
             <input type=text id="count" placeholder="加密次数" value="5"></input>
+            <input type=text id="deltah" placeholder="行交换高度" value="3"></input>
             <button type=button onclick="DrawOnCanvas()">刷新画布</button>
             <button type=button onclick="Enc()">加密</button>
             <button type=button onclick="Dec()">解密</button>
