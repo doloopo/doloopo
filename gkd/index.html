@@ -8,15 +8,8 @@
   \_____|\___/ \___/ \__, |_|\___|
                       __/ |       
                 谷歌 |___/        
-                     
-    不看源码的是lsp
-    看源码的是有头脑的lsp
-    没错说的就是你
 
-    'Google' Present, 2020
-
-    PS：Javascript 傻逼语言
-    PPS：QQ傻逼压图
+    Google Present, 2020
     -->
 
     <head>
@@ -175,54 +168,68 @@
         </div>
 
         <div>
-            <p style="color: gray;">'Google' Present, 2020</p>
+            <p style="color: gray;">Google Present, 2020</p>
         </div>
 
-                <!--用于调取剪贴板的script，由于要等待dom加载所以放在最末-->
-                <script>
-                    var inputt = document.getElementById("pasteimage");
-                            
-                    inputt.addEventListener( 'paste', function( event ){
-                        var clipboardData = event.clipboardData, i = 0, items, item, types;
+        <!--用于调取剪贴板的script，由于要等待dom加载所以放在最末-->
+        <script>
+            var inputt = document.getElementById("pasteimage");
                     
-                        if( clipboardData ){
-                            items = clipboardData.items;
-                        
-                            if( !items ){
-                                return;
-                            }
-                        
-                            item = items[0];
-                            // 保存在剪贴板中的数据类型
-                            types = clipboardData.types || [];
-                        
-                            for( ; i < types.length; i++ ){
-                                if( types[i] === 'Files' ){
-                                    item = items[i];
-                                    break;
-                                }
-                            }
-                        
-                            // 判断是否为图片数据
-                            if( item && item.kind === 'file' && item.type.match(/^image\//i) ){
-                                // 读取该图片           
-                                imgReader( item );
-                            }
+            inputt.addEventListener( 'paste', function( event ){
+                var clipboardData = event.clipboardData, i = 0, items, item, types;
+            
+                if( clipboardData ){
+                    items = clipboardData.items;
+                
+                    if( !items ){
+                        return;
+                    }
+                
+                    item = items[0];
+                    // 保存在剪贴板中的数据类型
+                    types = clipboardData.types || [];
+                
+                    for( ; i < types.length; i++ ){
+                        if( types[i] === 'Files' ){
+                            item = items[i];
+                            break;
                         }
-                    });
+                    }
+                
+                    // 判断是否为图片数据
+                    if( item && item.kind === 'file' && item.type.match(/^image\//i) ){
+                        // 读取该图片           
+                        imgReader( item );
+                    }
+                }
+            })
+            var imgReader = function( item ){
+            var file = item.getAsFile(),
+                reader = new FileReader()
+                // 读取文件后将其显示在网页中
+                reader.onload = function( e ){
+                    document.getElementById("tulip").src = e.target.result;
+                };
+            // 读取文件
+            reader.readAsDataURL( file );
+            };
+        </script>
 
-                    var imgReader = function( item ){
-                    var file = item.getAsFile(),
-                        reader = new FileReader();
-
-                        // 读取文件后将其显示在网页中
-                        reader.onload = function( e ){
-                            document.getElementById("tulip").src = e.target.result;
-                        };
-                    // 读取文件
-                    reader.readAsDataURL( file );
-                    };
-                </script>
+        <!--在控制台里打 Google 的 script-->
+        <script>
+            console.log(
+                "    _____                   _      \n\
+  / ____|                 | |     \n\
+ | |  __  ___   ___   __ _| | ___ \n\
+ | | |_ |/ _ \\ / _ \\ / _` | |/ _ \\\n\
+ | |__| | (_) | (_) | (_| | |  __/\n\
+  \\_____|\\___/ \\___/ \\__, |_|\\___|\n\
+                      __/ |       \n\
+                谷歌 |___/        \n\
+\n\
+    Google Present, 2020"
+            );
+        </script>
         
     </body>
 </html>
