@@ -58,6 +58,7 @@
                 ctx.drawImage(img, 0, 0, c.width, c.height);
             }
 
+            /* 这个函数在手机端有bug
             function Download(srlink){
                 var link = document.createElement('a');
                 //设置下载的文件名
@@ -71,6 +72,12 @@
                 link.click();
                 //移除节点
                 document.body.removeChild(link);
+            }
+            */
+
+            function DownloadPNG(){
+                var myDate = new Date();
+                download(document.getElementById('myCanvas').toDataURL('image/png'), "Image" + myDate.toLocaleString( ) + ".png");
             }
 
             //交换第 A 行与第 B 行，从第 1 行开始
@@ -108,6 +115,7 @@
             }
 
         </script>
+        <script src="download.js"></script>
         
         <style>
             div {margin:auto; width:80vw; text-align: center;}
@@ -142,7 +150,7 @@
             <button type=button onclick="DrawOnCanvas()">刷新画布</button>
             <button type=button onclick="Enc()">加密</button>
             <button type=button onclick="Dec()">解密</button>
-            <button type=button onclick="Download(document.getElementById('myCanvas').toDataURL('image/png'));">将结果存为PNG</button>
+            <button type=button onclick="DownloadPNG();">将结果存为PNG</button>
         </div>
 
         <hr />
