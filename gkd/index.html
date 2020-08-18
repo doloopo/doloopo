@@ -16,7 +16,6 @@
     'Google' Present, 2020
 
     PS：Javascript 傻逼语言
-    PPS：这随机算法怎么种子一样东西不一样
     -->
 
     <head>
@@ -109,7 +108,6 @@
             }
 
         </script>
-
         
         <style>
             div {margin:auto; width:80vw; text-align: center;}
@@ -119,12 +117,12 @@
     <body>
         <br />
         <h1 style="text-align: center;">图片加密/解密工具</h1>
-        <p style="text-align: center;">首先选择图片文件，再依次点击载入图片、绘制图片<br/>就可以使用加密、解密功能啦！</p>
+        <p style="text-align: center;"><strong>使用方法：</strong>1. 粘贴图片或选择图片文件；2. 点击“刷新画布”；3. 加密或解密</p>
         
         <div>
-            <input id="laFile" type="file" accept="image/*"></input>
-            <button type=button onclick='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);'>载入图片</button>
-            <button type=button onclick="DrawOnCanvas()">绘制图片</button>
+            <input id="pasteimage" type=text placeholder="在这里粘贴图片"></input>
+            &nbsp;或&nbsp;
+            <input id="laFile" type="file" accept="image/*" onchange='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);'></input>
         </div>
 
         <div style="text-align:left">
@@ -141,6 +139,7 @@
             </br>
             <input type=text id="key" placeholder="输入种子" value="74751"></input>
             <input type=text id="count" placeholder="加密次数" value="5"></input>
+            <button type=button onclick="DrawOnCanvas()">刷新画布</button>
             <button type=button onclick="Enc()">加密</button>
             <button type=button onclick="Dec()">解密</button>
             <button type=button onclick="Download(document.getElementById('myCanvas').toDataURL('image/png'));">将结果存为PNG</button>
@@ -158,6 +157,7 @@
             <button type=button onclick="Generate()">Generate</button>
             <button type=button onclick="Test3()">Test3</button>
             <button type=button onclick="SwapCanvasLines(1, 20);">TestSwap</button>
+            <button type=button onclick='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);'>（旧）载入图片</button>
             <p id="debug">Test Label (id="debug") Output Here<br /></p>
             <br />
         </div>
@@ -165,5 +165,52 @@
         <div>
             <p style="color: gray;">'Google' Present, 2020</p>
         </div>
+
+                <!--用于调取剪贴板的script，由于要等待dom加载所以放在最末-->
+                <script>
+                    var inputt = document.getElementById("pasteimage");
+                            
+                    inputt.addEventListener( 'paste', function( event ){
+                        var clipboardData = event.clipboardData, i = 0, items, item, types;
+                    
+                        if( clipboardData ){
+                            items = clipboardData.items;
+                        
+                            if( !items ){
+                                return;
+                            }
+                        
+                            item = items[0];
+                            // 保存在剪贴板中的数据类型
+                            types = clipboardData.types || [];
+                        
+                            for( ; i < types.length; i++ ){
+                                if( types[i] === 'Files' ){
+                                    item = items[i];
+                                    break;
+                                }
+                            }
+                        
+                            // 判断是否为图片数据
+                            if( item && item.kind === 'file' && item.type.match(/^image\//i) ){
+                                // 读取该图片           
+                                imgReader( item );
+                            }
+                        }
+                    });
+
+                    var imgReader = function( item ){
+                    var file = item.getAsFile(),
+                        reader = new FileReader();
+
+                        // 读取文件后将其显示在网页中
+                        reader.onload = function( e ){
+                            document.getElementById("tulip").src = e.target.result;
+                        };
+                    // 读取文件
+                    reader.readAsDataURL( file );
+                    };
+                </script>
+        
     </body>
 </html>
