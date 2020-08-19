@@ -14,6 +14,53 @@
 
     <head>
         <meta charset="utf-8" />
+        <title>图片</title>
+
+        <link href="http://cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+        <script src="http://cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+        <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+        <script src="jquery.animate-shadow-min.js"></script>
+  
+        <style>
+             .childcenter{
+                position: fixed;
+                width: 200px;
+                height: 150px;
+                top:50%;
+                left: 50%;
+                margin-top: -75px;
+                margin-left:-100px ;
+
+                text-align: center;
+            }
+
+            .bar{
+                width: 500px;
+                height: 50px;
+                box-shadow: 0px 0px 0px;
+                text-align: center;
+                position: fixed;
+
+                margin-top: 20px;
+                margin-left: -150px;
+
+                border-radius:25px;
+                border: 1px solid #dddddd;
+
+            }
+
+            .textinput{
+                border: 0px;
+                border-bottom: 1px solid #aaaaaa;
+            }
+
+            a{color:#5f6368; cursor:pointer}
+            a:link{color:#5f6368;}
+            a:visited{color:#5f6368;}
+            a:hover{color:#5f6368; text-decoration:underline}
+            a:active{color:#FF0000; text-decoration:underline}
+        </style>
+
         <script>
 
             function myRandom(seed, min, max){
@@ -45,7 +92,7 @@
                 var ctx=c.getContext("2d");
                 var img=document.getElementById("tulip");
 
-                c.style="Width: " + img.clientWidth + "px; Height: " + img.clientHeight + "px"; 
+                c.style="Width: " + img.naturalWidth + "px; Height: " + img.naturalHeight + "px"; 
                 c.width = img.naturalWidth;
                 c.height = img.naturalHeight;
                 ctx.clearRect(0,0,c.width,c.height);  
@@ -112,64 +159,54 @@
 
         </script>
         <script src="download.js"></script>
-        
-        <style>
-            div {margin:auto; width:80vw; text-align: center;}
-        </style>
+
     </head>
 
     <body>
-        <br />
-        <h1 style="text-align: center;">图片加密/解密工具</h1>
-        <p style="text-align: center;"><strong>使用方法：</strong>1. 粘贴图片或选择图片文件；2. 点击“刷新画布”；3. 加密或解密</p>
-        
-        <div>
-            <input id="pasteimage" type=text placeholder="在这里粘贴图片"></input>
-            &nbsp;或&nbsp;
-            <input id="laFile" type="file" accept="image/*" onchange='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);'></input>
+
+        <div class="childcenter">
+            <img src="picenc.png" width="272px" height="101px" style="margin-left: -35px; margin-top: -90px" />
+            <div class="bar">
+                <div style="margin-top:12px">
+                    <input id="pasteimage" class="textinput" type=text placeholder="在这里粘贴图片"></input>
+                    &nbsp;或&nbsp;
+                    <input id="laFile" type="file" accept="image/*" onchange='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);document.getElementById("drawbutton").disabled="";'></input>
+    
+                </div>
+            </div>
+
+            <button id="drawbutton" class="mui-btn mui-btn--raised" onclick="DrawOnCanvas(); $('.back').css({'height':'100vh','width':'100vw', 'overflow':'visible'})" style="background-color: #f4f4f4; color:#5f6368; font-size: 16px; margin-top: 100px" disabled>开始</button>
         </div>
 
-        <div style="text-align:left">
-            <p>原图：</p>
-            <image id="tulip" src=""></image>
-            <br/>
+        <image id="tulip" src="" style="display:none"></image>
 
-            <p>结果：</p>
-            <canvas id="myCanvas"></canvas>
+        <div class="back" style="width:0;height:0;z-index:100;position:absolute">
+            <div class="back" style="background-color: white; width: 0; height: 0; overflow:hidden; position:absolute">
+                <div style="width: 100vw; height: 35px; background-color: #f2f2f2; border-bottom: 1px solid #e4e4e4; position:fixed">
+                    <a onclick="location.reload()" style="margin:20px; margin-top:8px; position:absolute; font-size: 14px; float:left">主界面</a>
+                    <p style="margin-right: 20px; margin-top: 8px; text-align:right; float:right">Google Present, 2020</p>
+                </div>
+
+                <div style="margin: 40px">
+                    <canvas id="myCanvas" style=" position:relative"></canvas>
+
+                    <div style="margin-left: 200px">
+                        <br />
+                        <span>参数：</span>
+                        <input id="key" class="textinput" type=text placeholder="输入种子" style="width:70px;margin:10px;margin-top:20px" value="74751"></input>
+                        <input id="count" class="textinput" type=text placeholder="加密次数" style="width:70px;margin:10px;margin-top:20px" value="5"></input>
+                        <input id="deltah" class="textinput" type=text placeholder="行交换高度" style="width:70px;margin:10px;margin-top:20px" value="3"></input> 
+                        
+                        <br />
+                        <button class="mui-btn mui-btn" type=button onclick="Enc()">加密</button>
+                        <button class="mui-btn mui-btn" type=button onclick="Dec()">解密</button>
+                        <button class="mui-btn mui-btn" type=button onclick="DownloadPNG();">将结果存为PNG</button>
+                    </div>
+
+                </div>
+            </div>
         </div>
-        <br />
-
-        <div>
-            </br>
-            <input type=text id="key" placeholder="输入种子" value="74751"></input>
-            <input type=text id="count" placeholder="加密次数" value="5"></input>
-            <input type=text id="deltah" placeholder="行交换高度" value="3"></input>
-            <button type=button onclick="DrawOnCanvas()">刷新画布</button>
-            <button type=button onclick="Enc()">加密</button>
-            <button type=button onclick="Dec()">解密</button>
-            <button type=button onclick="DownloadPNG();">将结果存为PNG</button>
-        </div>
-
-        <hr />
-
-        <div>
-            <button onclick="document.getElementById('debug').style.display = document.getElementById('debug').style.display == 'none' ? 'block': 'none'">Show / Hide Debugging Menu</button>
-        </div>
-
-        <div id="debug" style="display:none; background-color:bisque">
-            <br />
-            <h3>Debugging</h3>
-            <button type=button onclick="Generate()">Generate</button>
-            <button type=button onclick="Test3()">Test3</button>
-            <button type=button onclick="SwapCanvasLines(1, 20);">TestSwap</button>
-            <button type=button onclick='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);'>（旧）载入图片</button>
-            <p id="debug">Test Label (id="debug") Output Here<br /></p>
-            <br />
-        </div>
-
-        <div>
-            <p style="color: gray;">Google Present, 2020</p>
-        </div>
+    
 
         <!--用于调取剪贴板的script，由于要等待dom加载所以放在最末-->
         <script>
@@ -212,6 +249,10 @@
                 };
             // 读取文件
             reader.readAsDataURL( file );
+
+            document.getElementById("drawbutton").disabled = "";
+
+            document.getElementById("pasteimage").placeholder = "OK!";
             };
         </script>
 
@@ -231,5 +272,16 @@
             );
         </script>
         
+        <!-- Jquery -->
+        <script>
+            $(document).ready(function(){
+                $(".bar").mouseleave(function(){
+                    $(".bar").animate({'box-shadow': '0px 0px 0px '}, 50 );
+                });
+                $(".bar").mouseenter(function(){
+                    $(".bar").animate({'box-shadow': '0px 2px 4px #aaaaaa' }, 50);
+                });
+            });
+        </script>
     </body>
 </html>
