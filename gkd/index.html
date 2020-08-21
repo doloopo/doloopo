@@ -23,7 +23,7 @@
   
         <style>
              .childcenter{
-                position: fixed;
+                position: absolute;
                 width: 200px;
                 height: 150px;
                 top:50%;
@@ -60,109 +60,12 @@
             a:active{color:#FF0000; text-decoration:underline}
         </style>
 
-        <script>
-
-            function myRandom(seed, min, max){
-                seed = (seed * 9301 + 49297) % 233280;
-
-                return parseInt((seed / 233280.0 * 10000000) % (max - min + 1) + min);
-            }
-
-            function Generate(){
-                for (var i=50;i>=1;i--)
-                { 
-                    document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, i) + "<br />");
-                }
-            }
-
-            function Test3(){
-                document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, 2) + "<br />");
-                document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, 100) + "<br />");
-                document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, 100) + "<br />");
-                document.getElementById("debug").innerHTML += (myRandom(document.getElementById('key').value, 1, 2) + "<br />");
-            }
-
-            //把图画上canvas的函数
-            function DrawOnCanvas(){
-
-                //document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);
-
-                var c=document.getElementById("myCanvas");
-                var ctx=c.getContext("2d");
-                var img=document.getElementById("tulip");
-
-                c.style="Width: " + img.naturalWidth + "px; Height: " + img.naturalHeight + "px"; 
-                c.width = img.naturalWidth;
-                c.height = img.naturalHeight;
-                ctx.clearRect(0,0,c.width,c.height);  
-                ctx.drawImage(img, 0, 0, c.width, c.height);
-            }
-
-            /* 这个函数在手机端有bug
-            function Download(srlink){
-                var link = document.createElement('a');
-                //设置下载的文件名
-                var myDate = new Date();
-                link.download = "Image" + myDate.toLocaleString( ) + ".png";
-                link.style.display = 'none';
-                //设置下载路径
-                link.href = srlink;
-                //触发点击
-                document.body.appendChild(link);
-                link.click();
-                //移除节点
-                document.body.removeChild(link);
-            }
-            */
-
-            function DownloadPNG(){
-                var myDate = new Date();
-                download(document.getElementById('myCanvas').toDataURL('image/png'), "Image" + myDate.toLocaleString( ) + ".png");
-            }
-
-            //交换第 A 行与第 B 行，从第 1 行开始，行高为 deltah
-            function SwapCanvasLines(A, B, deltah){
-                var c=document.getElementById("myCanvas");
-                var ctx=c.getContext("2d");
-
-                var dataA = ctx.getImageData(0, A - 1, c.clientWidth - 1, deltah);
-                var dataB = ctx.getImageData(0, B - 1, c.clientWidth - 1, deltah);
-
-                ctx.putImageData(dataB, 0, A - 1);
-                ctx.putImageData(dataA, 0, B - 1);
-            }
-
-            function Enc(){
-                var c=document.getElementById("myCanvas");
-                var dh = document.getElementById("deltah").value;
-
-                for(var j = 0; j < document.getElementById("count").value; j++){
-                    for (var i=parseInt((c.clientHeight-dh+1)/dh);i>=1;i--)
-                    { 
-                        SwapCanvasLines(myRandom(document.getElementById('key').value, 1, i)*dh, i*dh, dh);
-                    }
-                }
-            }
-
-            function Dec(){
-                var c = document.getElementById("myCanvas");
-                var dh = document.getElementById("deltah").value;
-
-                for(var j = 0; j < document.getElementById("count").value; j++){
-                    for (var i=1;i<=parseInt((c.clientHeight-dh+1)/dh);i++)
-                    { 
-                        SwapCanvasLines(myRandom(document.getElementById('key').value, 1, i)*dh, i*dh, dh);
-                    }
-                }
-            }
-
-        </script>
+        <script src="enccore.js"></script>
         <script src="download.js"></script>
 
     </head>
 
     <body>
-
         <div class="childcenter">
             <img src="picenc.png" width="272px" height="101px" style="margin-left: -35px; margin-top: -90px" />
             <div class="bar">
@@ -180,7 +83,7 @@
 
         <image id="tulip" src="" style="display:none"></image>
 
-        <div class="back" style="width:0;height:0;z-index:100;position:absolute">
+        <div class="back" style="width:0;height:0;z-index:100;">
             <div class="back" style="background-color: white; width: 0; height: 0; overflow:hidden; position:absolute">
                 <div style="width: 100vw; height: 35px; background-color: #f2f2f2; border-bottom: 1px solid #e4e4e4; position:fixed">
                     <a onclick="location.reload()" style="margin:20px; margin-top:8px; position:absolute; font-size: 14px; float:left">主界面</a>
@@ -209,52 +112,7 @@
     
 
         <!--用于调取剪贴板的script，由于要等待dom加载所以放在最末-->
-        <script>
-            var inputt = document.getElementById("pasteimage");
-                    
-            inputt.addEventListener( 'paste', function( event ){
-                var clipboardData = event.clipboardData, i = 0, items, item, types;
-            
-                if( clipboardData ){
-                    items = clipboardData.items;
-                
-                    if( !items ){
-                        return;
-                    }
-                
-                    item = items[0];
-                    // 保存在剪贴板中的数据类型
-                    types = clipboardData.types || [];
-                
-                    for( ; i < types.length; i++ ){
-                        if( types[i] === 'Files' ){
-                            item = items[i];
-                            break;
-                        }
-                    }
-                
-                    // 判断是否为图片数据
-                    if( item && item.kind === 'file' && item.type.match(/^image\//i) ){
-                        // 读取该图片           
-                        imgReader( item );
-                    }
-                }
-            })
-            var imgReader = function( item ){
-            var file = item.getAsFile(),
-                reader = new FileReader()
-                // 读取文件后将其显示在网页中
-                reader.onload = function( e ){
-                    document.getElementById("tulip").src = e.target.result;
-                };
-            // 读取文件
-            reader.readAsDataURL( file );
-
-            document.getElementById("drawbutton").disabled = "";
-
-            document.getElementById("pasteimage").placeholder = "OK!";
-            };
-        </script>
+        <script src="clipboard.js"></script>
 
         <!--在控制台里打 Google 的 script-->
         <script>

@@ -1,4 +1,11 @@
 /*
+* jquery.animate-shadow-min.js
+* JQuery 插件：阴影动画
+*
+* Dependence: JQuery.
+*/
+
+/*
  Shadow animation 1.11
  http://www.bitstorm.org/jquery/shadow-animation/
  Copyright 2011, 2013 Edwin Martin
