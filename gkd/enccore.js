@@ -19,6 +19,11 @@
 *         #key
 *         #count
 *         #deltah
+* ApplySize(percent)
+*     Elements:
+*         #myCanvas
+*         #source
+*         #tulip
 */
             function myRandom(seed, min, max){
                 seed = (seed * 9301 + 49297) % 233280;
@@ -47,6 +52,22 @@
                 c.height = img.naturalHeight;
                 ctx.clearRect(0,0,c.width,c.height);  
                 ctx.drawImage(img, 0, 0, c.width, c.height);
+            }
+
+            //重设图片大小的函数
+            function ApplySize(percent){
+                var c=document.getElementById("myCanvas");
+                var ctx=c.getContext("2d");
+                var img=document.getElementById("source");
+                var tup=document.getElementById("tulip");
+
+                c.style="Width: " + Math.floor(img.naturalWidth * percent / 100) + "px; Height: " + Math.floor(img.naturalHeight * percent / 100) + "px"; 
+                c.width = Math.floor(img.naturalWidth * percent / 100);
+                c.height = Math.floor(img.naturalHeight * percent / 100);
+                ctx.drawImage(img, 0, 0, c.width, c.height);
+                tup.src = document.getElementById('myCanvas').toDataURL('image/png');
+                //ctx.clearRect(0,0,c.width,c.height);  
+                //ctx.drawImage(tup, 0, 0, c.width, c.height);
             }
 
             /* 这个函数在手机端有bug

@@ -13,13 +13,14 @@
     -->
 
     <head>
-        <meta charset="utf-8" />
+        <meta charset="utf-8" />  
         <title>图片加解密</title>
 
         <link href="https://cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
         <script src="https://cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
         <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
         <script src="jquery.animate-shadow-min.js"></script>
+        
   
         <style>
              .childcenter{
@@ -53,6 +54,10 @@
                 border-bottom: 1px solid #aaaaaa;
             }
 
+            .gray{
+                background-color: #f4f4f4; color:#5f6368;
+            }
+
             a{color:#5f6368; cursor:pointer}
             a:link{color:#5f6368;}
             a:visited{color:#5f6368;}
@@ -73,14 +78,18 @@
                     <image src="ic_image_24px.svg" style="width:20px;height:20px;float:left;margin-left:20px;margin-right:15px"></image>
                     <input id="pasteimage" class="textinput" type=text placeholder="在这里粘贴图片"></input>
                     &nbsp;或&nbsp;
-                    <input id="laFile" type="file" accept="image/*" onchange='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);document.getElementById("drawbutton").disabled="";'></input>
+                    <input id="laFile" type="file" accept="image/*" 
+                    onchange='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);
+                    document.getElementById("source").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);
+                    document.getElementById("drawbutton").disabled="";'></input>
     
                 </div>
             </div>
 
-            <button id="drawbutton" class="mui-btn mui-btn--raised" onclick="DrawOnCanvas(); $('.back').css({'height':'100vh','width':'100vw', 'overflow':'visible'})" style="background-color: #f4f4f4; color:#5f6368; font-size: 16px; margin-top: 100px" disabled>开始</button>
+            <button id="drawbutton" class="mui-btn mui-btn--raised gray" onclick="DrawOnCanvas(); $('.back').css({'height':'100vh','width':'100vw', 'overflow':'visible'})" style="font-size:16px; margin-top: 100px" disabled>开始</button>
         </div>
 
+        <image id="source" src="" style="display:none"></image>
         <image id="tulip" src="" style="display:none"></image>
 
         <div class="back" style="width:0;height:0;z-index:100;">
@@ -95,15 +104,21 @@
 
                     <div style="margin-left: 200px">
                         <br />
+                        <span>修改图像大小：</span>
+                        <input id="zoom" class="textinput" type=text placeholder="图像缩放" style="width:70px;margin:10px;margin-top:20px" value="100"></input>
+                        <span>%</span>
+                        <button class="mui-btn mui-btn gray" type=button onclick="ApplySize(parseInt(document.getElementById('zoom').value));">修改</button>
+
+                        <br />
                         <span>参数：</span>
-                        <input id="key" class="textinput" type=text placeholder="输入种子" style="width:70px;margin:10px;margin-top:20px" value="74751"></input>
+                        <input id="key" class="textinput" type=text placeholder="输入种子" style="width:70px;margin:10px;" value="74751"></input>
                         <input id="count" class="textinput" type=text placeholder="加密次数" style="width:70px;margin:10px;margin-top:20px" value="5"></input>
                         <input id="deltah" class="textinput" type=text placeholder="行交换高度" style="width:70px;margin:10px;margin-top:20px" value="3"></input> 
-                        
+
                         <br />
-                        <button class="mui-btn mui-btn" type=button onclick="Enc()">加密</button>
-                        <button class="mui-btn mui-btn" type=button onclick="Dec()">解密</button>
-                        <button class="mui-btn mui-btn" type=button onclick="DownloadPNG();">将结果存为PNG</button>
+                        <button class="mui-btn mui-btn gray" type=button onclick="Enc()">加密</button>
+                        <button class="mui-btn mui-btn gray" type=button onclick="Dec()">解密</button>
+                        <button class="mui-btn mui-btn gray" type=button onclick="DownloadPNG();">将结果存为PNG</button>
                     </div>
 
                 </div>
