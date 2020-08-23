@@ -100,16 +100,18 @@
                 </div>
 
                 <div style="margin: 40px">
+                    <div style="margin-left: 200px; margin-bottom: 10px">
+                        <span>修改图像大小：</span>
+                        <input id="zoom" type=range style="width:200px;margin:10px;margin-top:20px" max="100" min="0" step="5" value="100" 
+                        onmousemove="document.getElementById('zoomvalue').innerHTML = document.getElementById('zoom').value"
+                        onchange="ApplySize(parseInt(document.getElementById('zoom').value));"></input>
+                        <span id="zoomvalue">100</span>
+                        <span>%</span>
+                    </div>
+
                     <canvas id="myCanvas" style=" position:relative"></canvas>
 
                     <div style="margin-left: 200px">
-                        <br />
-                        <span>修改图像大小：</span>
-                        <input id="zoom" class="textinput" type=text placeholder="图像缩放" style="width:70px;margin:10px;margin-top:20px" value="100"></input>
-                        <span>%</span>
-                        <button class="mui-btn mui-btn gray" type=button onclick="ApplySize(parseInt(document.getElementById('zoom').value));">修改</button>
-
-                        <br />
                         <span>参数：</span>
                         <input id="key" class="textinput" type=text placeholder="输入种子" style="width:70px;margin:10px;" value="74751"></input>
                         <input id="count" class="textinput" type=text placeholder="加密次数" style="width:70px;margin:10px;margin-top:20px" value="5"></input>
