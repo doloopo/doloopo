@@ -268,8 +268,11 @@
         var intl = document.getElementsByClassName('back')[0];
         intl.style.width = '100vw';
         intl.style.height = '100vh';
-        intl.style.overflow = 'visible';" disabled>开始</button>
+        intl.style.overflow = 'visible';
+        document.getElementById('browser').style.display = 'none';" disabled>开始</button>
     </div>
+
+    <div class="widespace" id="tmpwidespace"></div>
 
     <div class="dibu">
         <span>Google Product, 2020</span>
@@ -363,6 +366,7 @@
     
             if (0 + isOpera + isEdge + isFF + isSafari + isChrome == 0) {
                 document.getElementById("browser").style.display = "block";
+                document.getElementById("tmpwidespace").style.height= "150px";
             }
         </script>
     
