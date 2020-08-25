@@ -51,5 +51,5 @@ reader.readAsDataURL( file );
 
 document.getElementById("drawbutton").disabled = "";
 
-document.getElementById("pasteimage").value = "剪贴板图片已导入";
+document.getElementById("pasteimage").placeholder = "OK!";
 };

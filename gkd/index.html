@@ -1,136 +1,352 @@
-<!DOCTYPE html>
-    <!--
-    _____                   _      
-  / ____|                 | |     
- | |  __  ___   ___   __ _| | ___ 
- | | |_ |/ _ \ / _ \ / _` | |/ _ \
- | |__| | (_) | (_) | (_| | |  __/
-  \_____|\___/ \___/ \__, |_|\___|
-                      __/ |       
-                谷歌 |___/        
-
-    Google Present, 2020
-    -->
-
+<!doctype html>
+<html lang="zh-cmn-Hans">
     <head>
-        <meta charset="utf-8" />  
-        <title>图片加解密</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 
-        <link href="https://cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
-        <script src="https://cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
-        <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
-        <script src="jquery.animate-shadow-min.js"></script>
+    <script src="enccore.js"></script>
+    <script src="download.js"></script>
+
+    <!-- MDUI CSS -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/mdui@1.0.0/dist/css/mdui.min.css"
+        integrity="sha384-2PJ2u4NYg6jCNNpv3i1hK9AoAqODy6CdiC+gYiL2DVx+ku5wzJMFNdE3RoWfBIRP"
+        crossorigin="anonymous"
+    />
+
+    <style>
+        @media screen and (max-width: 400px) {
+            .topdiv {
+                padding-top: 104px;
+            }
+        }
+
+        @media screen and (min-width: 400px) {
+            .topdiv {
+                padding-top: 156px;
+            }
+        }
+
+        .topdiv {
+            text-align: center;
+        }
+
+        .toplogo {
+            width: 272px;
+            max-width: 50vw;
+        }
+
+        .bar {
+            width: 95vw;
+            max-width: 582px;
+            height: 43.5px;
+            margin: auto;
+            margin-top: 15px;
+            padding: 0px 5px;
+
+            /*box-shadow: 0px 1px 6px 0 rgba(33,32,36,0.28);*/
+            border: 1px solid #dfe1e5;
+            border-radius: 23px;
+
+            cursor: text;
+        }
+
+        .bar:hover {
+            box-shadow: 0px 1px 6px 0 rgba(33,32,36,0.28);
+        }
+
+        .bar > * {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .bar .baricon {
+            color: #9aa0a6; 
+            font-size: 20px;
+            margin: 0px 10px;
+        }
+
         
-  
-        <style>
-             .childcenter{
-                position: absolute;
-                width: 200px;
-                height: 150px;
-                top:50%;
-                left: 50%;
-                margin-top: -75px;
-                margin-left:-100px ;
+        #pasteimage {
+            width: calc(100% - 100px);
+        }
 
-                text-align: center;
-            }
+        #pasteimage {
+            outline: none;
+            border: none;
 
-            .bar{
-                width: 582px;
-                height: 44px;
-                box-shadow: 0px 0px 0px;
-                text-align: left;
-                position:absolute;
+            float: left;
+            margin-left: 5px;
+        }
+        
+        .mybutton {
+            min-width: 88px;
+            height: 36px;
 
-                margin-top: 20px;
-                margin-left: -191px;
+            background-image: linear-gradient(top,#f5f5f5,#f1f1f1);
+            color: #5f6368;
+            margin-top: 31px;
+            border: none;
+            outline: none;
+            border-radius: 3px;
 
-                border-radius:25px;
-                border: 1px solid #dddddd;
-            }
+            cursor:pointer;
+        }
 
-            .textinput{
-                border: 0px;
-                border-bottom: 1px solid #aaaaaa;
-            }
+        .mybutton:hover {
+            border: 1px solid #c6c6c6;
+            box-shadow: 0px 1.25px 1px rgba(33,32,36,0.10);
+            color: #222222;
+        }
 
-            .gray{
-                background-color: #f4f4f4; color:#5f6368;
-            }
 
-            a{color:#5f6368; cursor:pointer}
-            a:link{color:#5f6368;}
-            a:visited{color:#5f6368;}
-            a:hover{color:#5f6368; text-decoration:underline}
-            a:active{color:#FF0000; text-decoration:underline}
-        </style>
+        .mybutton:active {
+            border: 1px solid #4d90fe;
+        }
 
-        <script src="enccore.js"></script>
-        <script src="download.js"></script>
+        .mybutton:disabled {
+            cursor: initial;
+        }
 
-    </head>
+        .dibu {
+            width: 100%;
+            height: 40px;
+            background-color: #f2f2f2; 
+            border-top: 1px solid #e4e4e4; 
+            position: fixed;
 
-    <body>
-        <div class="childcenter">
-            <img src="picenc.png" width="272px" height="101px" style="margin-left: -35px; margin-top: -90px" />
-            <div class="bar">
-                <div style="margin-top:12px">
-                    <image src="ic_image_24px.svg" style="width:20px;height:20px;float:left;margin-left:20px;margin-right:15px"></image>
-                    <input id="pasteimage" class="textinput" type=text placeholder="在这里粘贴图片"></input>
-                    &nbsp;或&nbsp;
-                    <input id="laFile" type="file" accept="image/*" 
-                    onchange='document.getElementById("tulip").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);
-                    document.getElementById("source").src = window.URL.createObjectURL(document.getElementById("laFile").files[0]);
-                    document.getElementById("drawbutton").disabled="";'></input>
-    
-                </div>
-            </div>
+            bottom: 0px;
+            padding: 0px 30px;
 
-            <button id="drawbutton" class="mui-btn mui-btn--raised gray" onclick="DrawOnCanvas(); $('.back').css({'height':'100vh','width':'100vw', 'overflow':'visible'})" style="font-size:16px; margin-top: 100px" disabled>开始</button>
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+
+            z-index: 100;
+        }
+
+        .dibu span {
+            color: #5f6368;
+        }
+
+        .browser {
+            width: 100vw;
+            height: 80px;
+            background-color: #f2f2f2; 
+            border-top: 1px solid #e4e4e4; 
+            position: fixed;
+
+            bottom: 41px;
+            padding: 0px 30px;
+
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+
+            display: none;
+        }
+
+        .browser span {
+            margin: auto;
+            text-align: center;
+            line-height: 22px;
+        }
+
+        .back {
+            /* width: 100vw;
+            height: 100vh;
+            overflow: visible; */
+            width: 0px;
+            height: 0px;
+            overflow: hidden;
+
+            position: absolute;
+            top: 0px;
+            left: 0px;
+
+            background-color: white;
+
+            /*padding: 40px;*/
+        }
+
+        .backlogo {
+            width: 92px;
+            vertical-align:middle;
+            transform: translateY(-60%);
+            margin-left: 20px;
+        }
+
+        .backback {
+            width: 56px;
+            height: 56px;
+
+            border-radius: 28px;
+            display: inline-block;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+            border: 1px solid #dfe1e5;
+            color: #5f6368;
+            cursor: pointer;
+        }
+
+        .backback:hover {
+            box-shadow: 0 2px 10px 0 rgba(60,64,67,0.302), 0 2px 5px 1px rgba(60,64,67,0.149);
+            color: #222222;
+            background-color: #fafafb;
+        }
+
+        .backback:active {
+            background-color: #f1f3f4;
+        }
+
+        .back .top {
+            margin-top: 40px;
+        }
+
+        .back .left {
+            margin-left: 40px;
+        }
+
+        .space {
+            height: 20px;
+        }
+
+        .widespace {
+            height: 60px;
+        }
+
+        .backtxt {
+            display: inline-block;
+            width: calc((100% - 90px) / 3);
+            max-width: 200px;
+        }
+
+        #myCanvas {
+            margin-right: 40px;
+        }
+    </style>
+
+    <title>图片加解密</title>
+  </head>
+  <body class="mdui-theme-accent-blue">
+    <div class="topdiv">
+        <img class="toplogo" src="picenc.svg"></img>
+
+        <br />
+
+        <div class="bar" onclick="document.getElementById('pasteimage').focus();">
+            <i class="mdui-icon material-icons baricon" style="float: left;">&#xe8a7;</i>
+
+            <input id="pasteimage" type=text placeholder="到这里粘贴或点击回形针图标上传"></input>
+
+            <i class="mdui-icon material-icons baricon" style="float: right; cursor: pointer;" 
+            onclick="document.getElementById('laFile').click();">&#xe226;</i>
+        </div>
+        
+        <input id="laFile" type=file accept="image/*" style="display: none" 
+        onchange="document.getElementById('pasteimage').value=this.files[0].name;
+        document.getElementById('tulip').src = window.URL.createObjectURL(document.getElementById('laFile').files[0]);
+                    document.getElementById('source').src = window.URL.createObjectURL(document.getElementById('laFile').files[0]);
+                    document.getElementById('drawbutton').disabled='';" />
+
+        <button class="mybutton" id="drawbutton" 
+        onclick="DrawOnCanvas();
+        var intl = document.getElementsByClassName('back')[0];
+        intl.style.width = '100vw';
+        intl.style.height = '100vh';
+        intl.style.overflow = 'visible';" disabled>开始</button>
+    </div>
+
+    <div class="dibu">
+        <span>Google Product, 2020</span>
+    </div>
+
+    <div id="browser" class="browser">
+        <i class="mdui-icon material-icons" style="float:left; font-size: 44px;">&#xe8b2;</i>
+        <span>你似乎在使用非现代浏览器访问本网页。<br />
+        这类可能会出现界面显示异常、功能缺失（如无法导出 PNG）、图像处理速度慢的问题。<br />
+        我们建议使用 Chromium 内核的浏览器，以获得完整功能和最佳体验。</span>
+    </div>
+
+    <img id="source" src="" style="display:none"></img>
+    <img id="tulip" src="" style="display:none"></img>
+
+    <div class="back">
+        <div class="backback top left" onclick="location.reload();">
+            <i class="mdui-icon material-icons" style="position: absolute; margin: 16px; color: inherit;">&#xe5c4;</i>
+        </div>
+        <a href="index.html"><img class="backlogo" src="picenc.svg"></img></a>
+
+        <div class="space"></div>
+
+        <span class="left">调整图像大小百分比：</span>
+        <label class="mdui-slider mdui-slider-discrete left"  style="max-width: 400px; width: calc(100% - 80px); " >
+            <input id="zoom" type="range" step="1" min="0" max="100" value="100"
+            onchange="ApplySize(parseInt(this.value));"
+            />
+            <!-- onmousedown="mdui.$.lockScreen();"
+            onmouseup="mdui.$.unlockScreen();" -->
+        </label>
+        
+        <div class="space"></div>
+
+        <canvas id="myCanvas" class="left"></canvas>
+
+        <div class="space"></div>
+
+        <div class="mdui-textfield backtxt left">
+            <label class="mdui-textfield-label">加密种子</label>
+            <input id="key" class="mdui-textfield-input" type="text" value="74751"/>
+        </div>
+        <div class="mdui-textfield backtxt">
+            <label class="mdui-textfield-label">重复加密次数</label>
+            <input id="count" class="mdui-textfield-input" type="text" value="5"/>
+        </div>
+        <div class="mdui-textfield backtxt">
+            <label class="mdui-textfield-label">行交换高度</label>
+            <input id="deltah" class="mdui-textfield-input" type="text" value="3"/>
         </div>
 
-        <image id="source" src="" style="display:none"></image>
-        <image id="tulip" src="" style="display:none"></image>
+        <div class="space"></div>
 
-        <div class="back" style="width:0;height:0;z-index:100;">
-            <div class="back" style="background-color: white; width: 0; height: 0; overflow:hidden; position:absolute">
-                <div style="width: 100vw; height: 35px; background-color: #f2f2f2; border-bottom: 1px solid #e4e4e4; position:fixed">
-                    <a onclick="location.reload()" style="margin:20px; margin-top:8px; position:absolute; font-size: 14px; float:left">主界面</a>
-                    <p style="margin-right: 20px; margin-top: 8px; text-align:right; float:right; color:#5f6368;">Google Present, 2020</p>
-                </div>
+        <button class="mybutton left" onclick="Enc()">加密</button>
+        <button class="mybutton" onclick="Dec()">解密</button>
+        <button class="mybutton" onclick="DownloadPNG();">存为 PNG</button>
 
-                <div style="margin: 40px">
-                    <div style="margin-left: 200px; margin-bottom: 10px">
-                        <span>修改图像大小：</span>
-                        <input id="zoom" type=range style="width:200px;margin:10px;margin-top:20px" max="100" min="0" step="5" value="100" 
-                        onmousemove="document.getElementById('zoomvalue').innerHTML = document.getElementById('zoom').value"
-                        onchange="ApplySize(parseInt(document.getElementById('zoom').value));"></input>
-                        <span id="zoomvalue">100</span>
-                        <span>%</span>
-                    </div>
+        <div class="widespace"></div>
+    </div>
 
-                    <canvas id="myCanvas" style=" position:relative"></canvas>
+    <!-- MDUI JavaScript -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/mdui@1.0.0/dist/js/mdui.min.js"
+            integrity="sha384-aB8rnkAu/GBsQ1q6dwTySnlrrbhqDwrDnpVHR2Wgm8pWLbwUnzDcIROX3VvCbaK+"
+            crossorigin="anonymous"
+        ></script>
 
-                    <div style="margin-left: 200px">
-                        <span>参数：</span>
-                        <input id="key" class="textinput" type=text placeholder="输入种子" style="width:70px;margin:10px;" value="74751"></input>
-                        <input id="count" class="textinput" type=text placeholder="加密次数" style="width:70px;margin:10px;margin-top:20px" value="5"></input>
-                        <input id="deltah" class="textinput" type=text placeholder="行交换高度" style="width:70px;margin:10px;margin-top:20px" value="3"></input> 
-
-                        <br />
-                        <button class="mui-btn mui-btn gray" type=button onclick="Enc()">加密</button>
-                        <button class="mui-btn mui-btn gray" type=button onclick="Dec()">解密</button>
-                        <button class="mui-btn mui-btn gray" type=button onclick="DownloadPNG();">将结果存为PNG</button>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-    
-
-        <!--用于调取剪贴板的script，由于要等待dom加载所以放在最末-->
         <script src="clipboard.js"></script>
 
+        <script>
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串 
+            var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器 
+            // var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器 
+            // var isEdge = userAgent.indexOf("Windows NT 6.1; Trident/7.0;") > -1 && !isIE; //判断是否IE的Edge浏览器 
+            var isEdge = userAgent.indexOf("Edge") > -1; //判断是否IE的Edge浏览器
+            var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器 
+            var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") == -1; //判断是否Safari浏览器 
+            var isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1&&!isEdge; //判断Chrome浏览器
+    
+            // console.log(0 + isOpera + isEdge + isFF + isSafari + isChrome);
+            // console.log(userAgent);
+    
+            if (0 + isOpera + isEdge + isFF + isSafari + isChrome == 0) {
+                document.getElementById("browser").style.display = "block";
+            }
+        </script>
+    
         <!--在控制台里打 Google 的 script-->
         <script>
             console.log(
@@ -145,18 +361,6 @@
 \n\
     Google Present, 2020"
             );
-        </script>
-        
-        <!-- Jquery -->
-        <script>
-            $(document).ready(function(){
-                $(".bar").mouseleave(function(){
-                    $(".bar").animate({'box-shadow': '0px 0px 0px '}, 50 );
-                });
-                $(".bar").mouseenter(function(){
-                    $(".bar").animate({'box-shadow': '0px 2px 4px #aaaaaa' }, 50);
-                });
-            });
         </script>
     </body>
 </html>
