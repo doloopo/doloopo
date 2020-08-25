@@ -121,7 +121,7 @@
             position: fixed;
 
             bottom: 0px;
-            padding: 0px 30px;
+            padding: 0px 20px;
 
             display: flex;
             align-items: center;
@@ -133,6 +133,16 @@
         .dibu span {
             color: #5f6368;
         }
+
+        .dibu > * {
+            margin: 10px;
+        }
+
+        .dibu a {color: #5f6368;}
+        .dibu a:link    {color: #5f6368; cursor: pointer;}
+        .dibu a:visited {color: #5f6368; cursor: pointer;}
+        .dibu a:hover   {color: #5f6368; cursor: pointer; text-decoration: underline;}
+        .dibu a:active  {color: #dd4b39; cursor: pointer; text-decoration: underline;}
 
         .browser {
             width: 100vw;
@@ -263,6 +273,15 @@
 
     <div class="dibu">
         <span>Google Product, 2020</span>
+        <a mdui-menu="{target: '#repositorymenu', covered: false}">View Repository</a>
+            <ul class="mdui-menu" id="repositorymenu">
+                <li class="mdui-menu-item">
+                    <a href="https://github.com/mind-c/jntm.tk/tree/master/gkd" class="mdui-ripple" target="_blank">View on GitHub</a>
+                </li>
+                <li class="mdui-menu-item" disabled>
+                    <a href="https://gitee.com/consolor/consolor/tree/master/gkd" target="_blank">View on Gitee</a>
+                </li>
+            </ul>
     </div>
 
     <div id="browser" class="browser">
