@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <script src="enccore.js"></script>
+    <script src="download.js"></script>
+    <script src="Base64.js"></script>
+    <script src="DES3.js"></script>
+    <script src="gkdlinkcore.js"></script>
+
+    <!-- MDUI CSS -->
+    <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/mdui@1.0.0/dist/css/mdui.min.css"
+        integrity="sha384-2PJ2u4NYg6jCNNpv3i1hK9AoAqODy6CdiC+gYiL2DVx+ku5wzJMFNdE3RoWfBIRP"
+        crossorigin="anonymous"
+    />
+
+    <style>
+        @media screen and (max-width: 400px) {
+            .topdiv {
+                padding-top: 56px;
+            }
+        }
+
+        @media screen and (min-width: 400px) {
+            .topdiv {
+                padding-top: 108px;
+            }
+        }
+
+        .topdiv {
+            text-align: center;
+        }
+
+        .toplogo {
+            width: 272px;
+            max-width: 50vw;
+        }
+
+        .bar {
+            width: 95vw;
+            max-width: 582px;
+            height: 43.5px;
+            margin: auto;
+            margin-top: 15px;
+            padding: 0px 5px;
+
+            /*box-shadow: 0px 1px 6px 0 rgba(33,32,36,0.28);*/
+            border: 1px solid #dfe1e5;
+            border-radius: 23px;
+
+            cursor: text;
+        }
+
+        .bar:hover {
+            box-shadow: 0px 1px 6px 0 rgba(33,32,36,0.28);
+        }
+
+        .bar > * {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        .bar .baricon {
+            color: #9aa0a6; 
+            font-size: 20px;
+            margin: 0px 10px;
+        }
+
+        
+        #pasteimage {
+            width: calc(100% - 100px);
+        }
+
+        #pasteimage {
+            outline: none;
+            border: none;
+
+            float: left;
+            margin-left: 5px;
+        }
+        
+        .mybutton {
+            min-width: 88px;
+            height: 36px;
+
+            background-image: linear-gradient(top,#f5f5f5,#f1f1f1);
+            color: #5f6368;
+            margin-top: 31px;
+            border: none;
+            outline: none;
+            border-radius: 3px;
+
+            cursor:pointer;
+        }
+
+        .mybutton:hover {
+            border: 1px solid #c6c6c6;
+            box-shadow: 0px 1.25px 1px rgba(33,32,36,0.10);
+            color: #222222;
+        }
+
+
+        .mybutton:active {
+            border: 1px solid #4d90fe;
+        }
+
+        .mybutton:disabled {
+            cursor: initial;
+        }
+
+        .dibu {
+            width: 100%;
+            height: 40px;
+            background-color: #f2f2f2; 
+            border-top: 1px solid #e4e4e4; 
+            position: fixed;
+
+            bottom: 0px;
+            padding: 0px 20px;
+
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+
+            z-index: 100;
+        }
+
+        .dibu span {
+            color: #5f6368;
+        }
+
+        .dibu > * {
+            margin: 10px;
+        }
+
+        .dibu a {color: #5f6368;}
+        .dibu a:link    {color: #5f6368; cursor: pointer;}
+        .dibu a:visited {color: #5f6368; cursor: pointer;}
+        .dibu a:hover   {color: #5f6368; cursor: pointer; text-decoration: underline;}
+        .dibu a:active  {color: #dd4b39; cursor: pointer; text-decoration: underline;}
+
+        .browser {
+            width: 100vw;
+            height: 80px;
+            background-color: #f2f2f2; 
+            border-top: 1px solid #e4e4e4; 
+            position: fixed;
+
+            bottom: 41px;
+            padding: 0px 30px;
+
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+
+            display: none;
+        }
+
+        .browser span {
+            margin: auto;
+            text-align: center;
+            line-height: 22px;
+        }
+
+        .back {
+            /* width: 100vw;
+            height: 100vh;
+            overflow: visible; */
+            width: 0px;
+            height: 0px;
+            overflow: hidden;
+
+            position: absolute;
+            top: 0px;
+            left: 0px;
+
+            background-color: white;
+
+            /*padding: 40px;*/
+        }
+
+        .backlogo {
+            width: 92px;
+            vertical-align:middle;
+            transform: translateY(-60%);
+            margin-left: 20px;
+        }
+
+        .backback {
+            width: 56px;
+            height: 56px;
+
+            border-radius: 28px;
+            display: inline-block;
+            box-shadow: 0 1px 2px 0 rgba(60,64,67,0.302), 0 1px 3px 1px rgba(60,64,67,0.149);
+            border: 1px solid #dfe1e5;
+            color: #5f6368;
+            cursor: pointer;
+        }
+
+        .backback:hover {
+            box-shadow: 0 2px 10px 0 rgba(60,64,67,0.302), 0 2px 5px 1px rgba(60,64,67,0.149);
+            color: #222222;
+            background-color: #fafafb;
+        }
+
+        .backback:active {
+            background-color: #f1f3f4;
+        }
+
+        .back .top {
+            margin-top: 40px;
+        }
+
+        .back .left {
+            margin-left: 40px;
+        }
+
+        .space {
+            height: 20px;
+        }
+
+        .widespace {
+            height: 60px;
+        }
+
+        .backtxt {
+            display: inline-block;
+            width: calc((100% - 90px) / 3);
+            max-width: 200px;
+        }
+
+        #myCanvas {
+            margin-right: 40px;
+        }
+    </style>
+
+    <title>Picenc 图片加解密</title>
+  </head>
+  <body class="mdui-theme-accent-blue mdui-theme-primary-blue">
+
+    <div class="mdui-tab" mdui-tab>
+        <a href="index.html" class="mdui-ripple mdui-tab-active">Picenc 图片加解密</a>
+        <a href="gkdlink.html" class="mdui-ripple">GKD 链接生成</a>
+    </div>
+
+    <div class="topdiv">
+        <img class="toplogo" src="picenc.svg"></img>
+
+        <br />
+
+        <div class="bar" onclick="document.getElementById('pasteimage').focus();">
+            <i class="mdui-icon material-icons baricon" style="float: left;">&#xe8a7;</i>
+
+            <input id="pasteimage" type=text placeholder="GKD 链接、粘贴图片或点击回形针图标上传"
+            oninput="ImportGKDLink();" 
+            autocomplete="off"></input>
+
+            <i class="mdui-icon material-icons baricon" style="float: right; cursor: pointer;" 
+            onclick="document.getElementById('laFile').click();">&#xe226;</i>
+        </div>
+        
+        <input id="laFile" type=file accept="image/*" style="display: none" 
+        onchange="document.getElementById('pasteimage').value=this.files[0].name;
+        document.getElementById('tulip').src = window.URL.createObjectURL(document.getElementById('laFile').files[0]);
+                    document.getElementById('source').src = window.URL.createObjectURL(document.getElementById('laFile').files[0]);
+                    document.getElementById('drawbutton').disabled='';" />
+
+        <button class="mybutton" id="drawbutton" 
+        onclick="DrawOnCanvas();
+        var intl = document.getElementsByClassName('back')[0];
+        intl.style.width = '100vw';
+        intl.style.height = '100vh';
+        intl.style.overflow = 'visible';
+        document.getElementById('browser').style.display = 'none';" disabled>开始</button>
+    </div>
+
+    <div class="widespace" id="tmpwidespace"></div>
+
+    <div class="dibu">
+        <span>Google Product, 2020</span>
+        <a mdui-menu="{target: '#repositorymenu', covered: false}">View Repository</a>
+            <ul class="mdui-menu" id="repositorymenu">
+                <li class="mdui-menu-item">
+                    <a href="https://github.com/mind-c/jntm.tk/tree/master/gkd" class="mdui-ripple" target="_blank">View on GitHub</a>
+                </li>
+                <li class="mdui-menu-item">
+                    <a href="https://gitee.com/consolor/consolor/tree/master/gkd" target="_blank">View on Gitee</a>
+                </li>
+            </ul>
+    </div>
+
+    <div id="browser" class="browser">
+        <i class="mdui-icon material-icons" style="float:left; font-size: 44px;">&#xe8b2;</i>
+        <span>你似乎在使用非现代浏览器访问本网页。<br />
+        这类可能会出现界面显示异常、功能缺失（如无法导出 PNG）、图像处理速度慢的问题。<br />
+        我们建议使用 Chromium 内核的浏览器，以获得完整功能和最佳体验。</span>
+    </div>
+
+    <img id="source" src="" style="display:none" crossOrigin="anonymous"></img>
+    <img id="tulip" src="" style="display:none" crossOrigin="anonymous"></img>
+
+    <div class="back">
+        <div class="backback top left" onclick="location.reload();">
+            <i class="mdui-icon material-icons" style="position: absolute; margin: 16px; color: inherit;">&#xe5c4;</i>
+        </div>
+        <a href="index.html"><img class="backlogo" src="picenc.svg"></img></a>
+
+        <div class="space"></div>
+
+        <span class="left">调整图像大小百分比：</span>
+        <label class="mdui-slider mdui-slider-discrete left"  style="max-width: 400px; width: calc(100% - 80px); " >
+            <input id="zoom" type="range" step="1" min="0" max="100" value="100"
+            onchange="ApplySize(parseInt(this.value));"
+            />
+            <!-- onmousedown="mdui.$.lockScreen();"
+            onmouseup="mdui.$.unlockScreen();" -->
+        </label>
+        
+        <div class="space"></div>
+
+        <canvas id="myCanvas" class="left"></canvas>
+
+        <div class="space"></div>
+
+        <div class="mdui-textfield backtxt left">
+            <label class="mdui-textfield-label">加密种子</label>
+            <input id="key" class="mdui-textfield-input" type="text" value="74751"/>
+        </div>
+        <div class="mdui-textfield backtxt">
+            <label class="mdui-textfield-label">重复加密次数</label>
+            <input id="count" class="mdui-textfield-input" type="text" value="5"/>
+        </div>
+        <div class="mdui-textfield backtxt">
+            <label class="mdui-textfield-label">行交换高度</label>
+            <input id="deltah" class="mdui-textfield-input" type="text" value="3"/>
+        </div>
+
+        <div class="space"></div>
+
+        <button class="mybutton left" onclick="Enc()">加密</button>
+        <button class="mybutton" onclick="Dec()">解密</button>
+        <button class="mybutton" onclick="DownloadPNG();">存为 PNG</button>
+
+        <div class="widespace"></div>
+    </div>
+
+    <!-- MDUI JavaScript -->
+        <script
+            src="https://cdn.jsdelivr.net/npm/mdui@1.0.0/dist/js/mdui.min.js"
+            integrity="sha384-aB8rnkAu/GBsQ1q6dwTySnlrrbhqDwrDnpVHR2Wgm8pWLbwUnzDcIROX3VvCbaK+"
+            crossorigin="anonymous"
+        ></script>
+
+        <script src="clipboard.js"></script>
+
+        <script>
+            var userAgent = navigator.userAgent; //取得浏览器的userAgent字符串 
+            var isOpera = userAgent.indexOf("Opera") > -1; //判断是否Opera浏览器 
+            // var isIE = userAgent.indexOf("compatible") > -1 && userAgent.indexOf("MSIE") > -1 && !isOpera; //判断是否IE浏览器 
+            // var isEdge = userAgent.indexOf("Windows NT 6.1; Trident/7.0;") > -1 && !isIE; //判断是否IE的Edge浏览器 
+            var isEdge = userAgent.indexOf("Edge") > -1; //判断是否IE的Edge浏览器
+            var isFF = userAgent.indexOf("Firefox") > -1; //判断是否Firefox浏览器 
+            var isSafari = userAgent.indexOf("Safari") > -1 && userAgent.indexOf("Chrome") == -1; //判断是否Safari浏览器 
+            var isChrome = userAgent.indexOf("Chrome") > -1 && userAgent.indexOf("Safari") > -1&&!isEdge; //判断Chrome浏览器
+    
+            // console.log(0 + isOpera + isEdge + isFF + isSafari + isChrome);
+            // console.log(userAgent);
+    
+            if (0 + isOpera + isEdge + isFF + isSafari + isChrome == 0) {
+                document.getElementById("browser").style.display = "block";
+                document.getElementById("tmpwidespace").style.height= "150px";
+            }
+        </script>
+    
+        <!--在控制台里打 Google 的 script-->
+        <script>
+            console.log(
+                "    _____                   _      \n\
+  / ____|                 | |     \n\
+ | |  __  ___   ___   __ _| | ___ \n\
+ | | |_ |/ _ \\ / _ \\ / _` | |/ _ \\\n\
+ | |__| | (_) | (_) | (_| | |  __/\n\
+  \\_____|\\___/ \\___/ \\__, |_|\\___|\n\
+                      __/ |       \n\
+                谷歌 |___/        \n\
+\n\
+    Google Present, 2020"
+            );
+        </script>
+    </body>
+</html>
