@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="zh-cmn-Hans">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no"/>
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+
+    <!-- MDUI CSS -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/mdui@1.0.0/dist/css/mdui.min.css"
+      integrity="sha384-2PJ2u4NYg6jCNNpv3i1hK9AoAqODy6CdiC+gYiL2DVx+ku5wzJMFNdE3RoWfBIRP"
+      crossorigin="anonymous"
+    />
+
+    <style>
+      .container {
+        padding: 40px;
+      }
+
+      .container > form > label {
+        margin-right: 20px;
+      }
+
+      @media screen and (max-width: 400px) {
+            
+            .textinput {
+                width: calc(100% - 20px);
+            }
+        }
+
+        @media screen and (min-width: 400px) {
+            .textinput {
+               max-width: 340px;
+            }
+        }
+    </style>
+    <title>斗地主发牌器</title>
+  </head>
+  <body class="mdui-theme-primary-blue mdui-theme-accent-blue">
+    <div class="mdui-appbar">
+        <div class="mdui-toolbar mdui-color-theme">
+          <a href="javascript:;" class="mdui-typo-headline mdui-text-color-white">斗地主发牌器</a>
+          <div class="mdui-toolbar-spacer"></div>
+        </div>
+      </div>
+
+      <div class="container">
+        <form>
+          <div class="mdui-textfield">
+            <input id="number" class="mdui-textfield-input textinput" type="text" placeholder="输入房间号" autocomplete="off" />
+          </div>
+
+          <label class="mdui-radio">
+            <input id="dizhu" type="radio" name="group1" checked/>
+            <i class="mdui-radio-icon"></i>
+            我是地主
+          </label>
+        
+          <label class="mdui-radio">
+            <input id="nongmin1" type="radio" name="group1"/>
+            <i class="mdui-radio-icon"></i>
+            我是农民1号
+          </label>
+
+          <label class="mdui-radio">
+            <input id="nongmin2" type="radio" name="group1"/>
+            <i class="mdui-radio-icon"></i>
+            我是农民2号
+          </label>
+        </form>
+
+        <br />
+        <button onclick="setPais();" class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-btn-raised">给我发牌</button>
+        <br />
+        <div class="mdui-textfield">
+            <textarea id="pailist" class="mdui-textfield-input textinput" placeholder="给你的牌" readonly></textarea>
+          </div>
+      </div>
+
+
+    <!-- MDUI JavaScript -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/mdui@1.0.0/dist/js/mdui.min.js"
+      integrity="sha384-aB8rnkAu/GBsQ1q6dwTySnlrrbhqDwrDnpVHR2Wgm8pWLbwUnzDcIROX3VvCbaK+"
+      crossorigin="anonymous"
+    ></script>
+
+    <script>
+        //max not included
+        function rnd( seed, min, max ){
+            return ((seed * seed) ^ seed) % (max - min) + min;
+        };
+
+        function getFullPai(seed){
+            pais = [
+                'A', 'A', 'A', 'A', 
+                '2', '2', '2', '2', 
+                '3', '3', '3', '3', 
+                '4', '4', '4', '4', 
+                '5', '5', '5', '5', 
+                '6', '6', '6', '6', 
+                '7', '7', '7', '7', 
+                '8', '8', '8', '8', 
+                '9', '9', '9', '9', 
+                '10', '10', '10', '10', 
+                'J', 'J', 'J', 'J', 
+                'Q', 'Q', 'Q', 'Q', 
+                'K', 'K', 'K', 'K', 
+                '大王', '小王'
+            ]
+            for (var i = pais.length - 1; i >= 0; i--) {
+                var tmp = pais[i];
+                pais[i] = pais[rnd(seed + i, 0, pais.length - 1)];
+                pais[rnd(seed + i, 0, pais.length - 1)] = tmp;
+            }
+
+            return pais;
+        }
+
+        function setPais(){
+            var seed = parseInt(document.getElementById('number').value);
+            var pailist = document.getElementById("pailist");
+            var fullpai = getFullPai(seed);
+
+            pailist.value = "";
+
+            if (document.getElementById("dizhu").checked) {
+                for(var i = 0; i < 20; i++) {
+                    pailist.value += fullpai[i] + " ";
+                }  
+            }
+            if (document.getElementById("nongmin1").checked) {
+                for(var i = 20; i < 37; i++) {
+                    pailist.value += fullpai[i] + " ";
+                }  
+            }
+            if (document.getElementById("nongmin2").checked) {
+                for(var i = 38; i < 54; i++) {
+                    pailist.value += fullpai[i] + " ";
+                }  
+            }
+            
+        }
+    </script>
+  </body>
+</html>
