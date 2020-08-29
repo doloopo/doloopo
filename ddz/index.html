@@ -50,34 +50,40 @@
       <div class="container">
         <form>
           <div class="mdui-textfield">
-            <input id="number" class="mdui-textfield-input textinput" type="text" placeholder="输入房间号" autocomplete="off" />
+            <input id="number" class="mdui-textfield-input textinput" type="text" placeholder="输入房间号（双击随机生成）" autocomplete="off"
+            ondblclick="this.value = rnd(new Date().getTime(), 0, 1000000000);" />
           </div>
 
           <label class="mdui-radio">
-            <input id="dizhu" type="radio" name="group1" checked/>
+            <input id="wj1" type="radio" name="group1" checked/>
             <i class="mdui-radio-icon"></i>
-            我是地主
+            我是1P
           </label>
         
           <label class="mdui-radio">
-            <input id="nongmin1" type="radio" name="group1"/>
+            <input id="wj2" type="radio" name="group1"/>
             <i class="mdui-radio-icon"></i>
-            我是农民1号
+            我是2P
           </label>
 
           <label class="mdui-radio">
-            <input id="nongmin2" type="radio" name="group1"/>
+            <input id="wj3" type="radio" name="group1"/>
             <i class="mdui-radio-icon"></i>
-            我是农民2号
+            我是3P
           </label>
         </form>
 
         <br />
         <button onclick="setPais();" class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-btn-raised">给我发牌</button>
-        <br />
+        
         <div class="mdui-textfield">
             <textarea id="pailist" class="mdui-textfield-input textinput" placeholder="给你的牌" readonly></textarea>
           </div>
+
+          <br /><br />
+          <button onclick="showDiZhuPai();" class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-btn-raised">公布三张牌</button>
+          <span id="dizhupai">sth</span>
+
       </div>
 
 
@@ -91,7 +97,7 @@
     <script>
         //max not included
         function rnd( seed, min, max ){
-            return ((seed * seed) ^ seed) % (max - min) + min;
+            return (Math.abs((seed * seed) ^ seed)) % (max - min) + min;
         };
 
         function getFullPai(seed){
@@ -127,22 +133,31 @@
 
             pailist.value = "";
 
-            if (document.getElementById("dizhu").checked) {
-                for(var i = 0; i < 20; i++) {
+            if (document.getElementById("wj1").checked) {
+                for(var i = 0; i < 17; i++) {
                     pailist.value += fullpai[i] + " ";
                 }  
             }
-            if (document.getElementById("nongmin1").checked) {
-                for(var i = 20; i < 37; i++) {
+            if (document.getElementById("wj2").checked) {
+                for(var i = 17; i < 34; i++) {
                     pailist.value += fullpai[i] + " ";
                 }  
             }
-            if (document.getElementById("nongmin2").checked) {
-                for(var i = 38; i < 54; i++) {
+            if (document.getElementById("wj3").checked) {
+                for(var i = 34; i < 51; i++) {
                     pailist.value += fullpai[i] + " ";
                 }  
             }
             
+        }
+
+        function showDiZhuPai(){
+            var seed = parseInt(document.getElementById('number').value);
+            var pailist = document.getElementById("pailist");
+            var fullpai = getFullPai(seed);
+
+            document.getElementById("dizhupai").innerText = 
+            fullpai[51] + " " + fullpai[52] + " " + fullpai[53];
         }
     </script>
   </body>
