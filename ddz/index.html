@@ -50,7 +50,7 @@
       <div class="container">
         <form>
           <div class="mdui-textfield">
-            <input id="number" class="mdui-textfield-input textinput" type="text" placeholder="输入房间号（双击随机生成）" autocomplete="off"
+            <input id="number" class="mdui-textfield-input textinput" type="text" placeholder="输入牌组种子（双击随机生成）" autocomplete="off"
             ondblclick="this.value = rnd(new Date().getTime(), 0, 1000000000);" />
           </div>
 
@@ -82,7 +82,7 @@
 
           <br /><br />
           <button onclick="showDiZhuPai();" class="mdui-btn mdui-color-theme-accent mdui-ripple mdui-btn-raised">公布三张牌</button>
-          <span id="dizhupai">sth</span>
+          <span id="dizhupai"></span>
 
       </div>
 
