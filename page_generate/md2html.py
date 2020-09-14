@@ -52,7 +52,7 @@ def generate_artical(md_path, static_path, article_base_path):
                         b = b.replace("replace_name_extra", extra)
                         b = b.replace("replace_date", date)
                         b = b.replace("replace_html", markdown.markdown(c))
-                        with open(static_path + "\\%s.html" % f, 'w', encoding="utf-8") as htmlw:
+                        with open(static_path + "\\%s.html" % f[:-3], 'w', encoding="utf-8") as htmlw:
                             htmlw.write(b)
 
 
