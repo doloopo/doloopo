@@ -1,0 +1,1 @@
+练手用的博客静态页面生成器，参考了 [Blog.google](https://blog.google) 的设计。

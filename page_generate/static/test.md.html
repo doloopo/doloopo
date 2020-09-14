@@ -52,25 +52,25 @@
 
     <div class="title-container">
         <div class="spacer"></div>
-        <span id="article-label" class="raleway">replace_label</span>
+        <span id="article-label" class="raleway">正文</span>
         <div class="label-title-spliter"></div>
-        <span id="article-title" class="raleway">replace_title</span>
+        <span id="article-title" class="raleway">测试文章</span>
     </div>
 
     <div class="label-title-spliter"></div>
 
     <div class="img-container">
-        <img id="banner" src="replace_img" onerror="this.style.display='none'" />
+        <img id="banner" src="" onerror="this.style.display='none'" />
     </div>
 
     <div class="label-title-spliter"></div>
 
     <div class="content-container">
-        <span id="author-name" class="raleway">replace_name</span>
+        <span id="author-name" class="raleway">Jave Bluen</span>
         <br />
-        <span>replace_name_extra</span>
+        <span>SuperMan. Something.</span>
         <div class="spacers"></div>
-        <span id="publish-time" class="raleway">发表于 replace_date</span>
+        <span id="publish-time" class="raleway">发表于 2020-9-14 17:25</span>
         <div class="spacers"></div>
         <hr />
         <!--
@@ -124,7 +124,155 @@ fbi="heab"
 
     <!--TODO: Table CSS-->
 
-        replace_html
+        <!--题测试文章⋘-->
+
+<!--图⋘-->
+
+<!--作Jave Bluen⋘-->
+
+<!--补SuperMan. Something.⋘-->
+
+<!--时2020-9-14 17:25⋘-->
+
+<p>多数人可能都习惯于使用微软的Office Word来写东西，它的功能确实强大，有丰富的排版功能。但是它也有很多的缺点：</p>
+<ol>
+<li>Office Word是商业付费软件，你电脑中装的是正版吗？</li>
+<li>Word文档非常臃肿，一个空白文档也要占25K左右。</li>
+<li>兼容性非常不好，你有打不开docx格式文档的经历吗？</li>
+<li>安装文件大、启动慢…</li>
+</ol>
+<p>把Word文档发给一个没有安装Office Word人会很尴尬，Linux上虽然有Open Office，Windows也可以使用免费的WPS Word，但多少会有显示和兼容上的问题。</p>
+<p>那什么文档兼容性好，txt文件是个选择，但可惜没有任何样式和排版功能。</p>
+<h3>“鱼”和“熊掌”怎么兼得呢？</h3>
+<p>大名鼎鼎的「互联网之子」亚伦·斯沃茨（Aaron Hillel Swartz；1986年11月8日－2013年1月11日）和美国著名博客作者约翰·格鲁伯（John Gruber）出手帮我们解决了这个痛点，他们合作发明了Markdown。（下图是作者照片）</p>
+<p><img alt="img" src="https://pic4.zhimg.com/80/d6da3caaadee612a22eefe288567204f_720w.jpg" /></p>
+<p>Aaron在自己博客上写过这么一段：</p>
+<blockquote>
+<p>For months I’ve been working with John Gruber on a new project. The idea was to make writing simple web pages, and especially weblog entries, as easy as writing an email, by allowing you to use much the same syntax and converting it automatically into HTML.</p>
+</blockquote>
+<p>他说正在与John Gruber合作一个新项目，想法是让人人都能写简单的网页，把写博客这件事变得像写邮件一样简单，你可以用一些简单的标记控制文字的版式，并自动转化成HTML页面。</p>
+<p>这个就是Markdown的由来。</p>
+<h2>Markdown难学吗？</h2>
+<p>首先，Markdown 既不是工具也不是程序语言，而是一种轻量级的「标记语言」，所以千万别被吓到，其实非常简单。</p>
+<p>只需要记忆几个写法就ok。</p>
+<p>Markdown写作是一种纯文本写作，你打开Windows的记事本就可以写，或者其他任何一款编辑器都可以。</p>
+<p>当然你也可以选择一些专业的Markdown编辑器，这样可以实时预览排版效果。</p>
+<h2>Markdown常用基础语法</h2>
+<p>先想想我们一般写作时候需要用到什么样的排版？</p>
+<p>无非就是标题、引用、强调（加粗、斜体、下划线）、插入链接、插入图片、列表（有序和无序列表），甚至连表格都很少用。</p>
+<h3>标题语法</h3>
+<p>Markdown一共支持6个级别大小的标题（对应于HTML语法里的h1~h6），写法很简单，就是在文字前空一格加上#号就行，几个#号就是几级标题，大小由大到小。</p>
+<p>```text</p>
+<h1>第一级标题 <code>&lt;h1&gt;</code></h1>
+<h2>第二级标题 <code>&lt;h2&gt;</code></h2>
+<h6>第六级标题 <code>&lt;h6&gt;</code></h6>
+<p>```</p>
+<p>效果如下：</p>
+<h1>第一级标题 <h1></h1>
+<h2>第二级标题 <h2></h2>
+<p>第六级标题 <h6></p>
+<h3>引用语法</h3>
+<p>如果你想引用一段文字，那就使用大于号&gt;</p>
+<p>```text</p>
+<blockquote>
+<p>这是一段引用</p>
+<p>这是另一段引用
+```</p>
+</blockquote>
+<p>效果如下：</p>
+<blockquote>
+<p>这是一段引用</p>
+<p>这是另一段引用</p>
+</blockquote>
+<h3>强调语法</h3>
+<h4>粗体</h4>
+<p>如果你想加粗一段文字，只需要在文字前后加两个*号</p>
+<p><code>text
+**我很重要！**</code></p>
+<p>效果如下：</p>
+<p><strong>我很重要哦！</strong></p>
+<h4>斜体</h4>
+<p>如果你想让一段文字倾斜，只需要在文字前后加一个星号*</p>
+<p><code>text
+*我是比萨斜塔*</code></p>
+<p>效果如下：</p>
+<p><em>我是比萨斜塔</em></p>
+<h4>下划线</h4>
+<p>如果你想让一段文字加上下划线，只需要在文字前后加一个下划线_</p>
+<p><code>text
+_人是社会性动物_</code></p>
+<p>效果如下：</p>
+<p><em>人是社会性动物</em></p>
+<h4>删除线</h4>
+<p>如果你想让一段文字加上删除线效果，只需要在文字前后加一个波浪线~</p>
+<p><code>text
+~~我所说的都是错的~~</code></p>
+<p>效果如下：</p>
+<p>我所说的都是错的</p>
+<h3>插入链接</h3>
+<p>如果你想把一段文字加上链接指向到某个网址，就把文字用中括号围起来[]，然后加上一个小括号()，括号里填上网址即可。</p>
+<p><code>text
+[向阳乔木的博客](http://tuijiankan.com)</code></p>
+<p>效果如下：</p>
+<p><a href="https://link.zhihu.com/?target=http%3A//tuijiankan.com">向阳乔木的博客</a></p>
+<h3>插入图片</h3>
+<p>插入图片的语法和插入链接很像，就是在前面加了一个叹号!，注意：叹号是英文叹号。</p>
+<p><code>text
+![百度搜索](https://www.baidu.com/img/bd_logo1.png)</code></p>
+<p>效果如下：</p>
+<p><img alt="img" src="https://pic1.zhimg.com/80/b15c113aeddbeb606d938010b88cf8e6_720w.png" /></p>
+<h3>列表</h3>
+<p>列表分为有序列表和无序列表，什么是有序列表呢？就是1、2、3顺序排开。</p>
+<h4>有序列表</h4>
+<p>语法如下，注意：数字后加点. 再空一格写内容。</p>
+<p>```text
+1. 把冰箱门打开</p>
+<ol>
+<li>
+<p>把大象放进去</p>
+</li>
+<li>
+<p>关上冰箱门
+```</p>
+</li>
+</ol>
+<p>效果如下：</p>
+<ol>
+<li>把冰箱门打开</li>
+<li>把大象放进去</li>
+<li>关上冰箱门</li>
+</ol>
+<h4>无序列表</h4>
+<p>无序列表只需要在文字前面加上减号-就行。（星号*或加号+也可以，看个人喜好，我比较喜欢用减号）</p>
+<p>```text</p>
+<ul>
+<li>
+<p>把冰箱门打开</p>
+</li>
+<li>
+<p>把大象放进去</p>
+</li>
+<li>
+<p>关上冰箱门</p>
+</li>
+</ul>
+<p>```</p>
+<p>效果如下：</p>
+<ul>
+<li>把冰箱门打开</li>
+<li>把大象放进去</li>
+<li>关上冰箱门</li>
+</ul>
+<h3>其他标记</h3>
+<h4>换行</h4>
+<p>当你写大段文本分段的时候，只是回车换行是不行的，有些解释器出来的效果会让文字连在一起。</p>
+<p>段落与段落之间需要强制空一行才能分段。</p>
+<h4>分割线</h4>
+<p>你可以在一行中使用三个以上的星号*或减号-来创建分割线（注意：行内不能有其他东西）</p>
+<h2>```text</h2>
+<hr />
+<p>```</p>
+<p>效果如下：</p>
     </div>
 
 
