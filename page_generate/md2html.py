@@ -40,6 +40,9 @@ def generate_artical(md_path, static_path, article_base_path):
                     date = re.findall(r'时(.*?)⋘', c)[0]
                     # print(title, img, author, extra, date)
 
+                    c = re.sub(r'```\w+\s','<div class="codeblock"><pre><code>',c)
+                    c = re.sub(r'```\s','</code></pre></div>',c)
+
                     with open(article_base_path, 'r', encoding="utf-8") as basef:
                         b = basef.read()
                         b = b.replace("replace_label", "正文")

@@ -228,3 +228,11 @@ _人是社会性动物_
 ```
 
 效果如下：
+
+
+```python
+# <PRE>
+
+print("HELLOW ORLD!")
+a = "fuck"
+```

@@ -16,7 +16,12 @@
         rel="stylesheet">
     <link href="style_base.css" rel="stylesheet">
 
-    <title>jntm.tk Blog</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/highlight.min.js"></script>
+    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.0.0/styles/default.min.css" rel="stylesheet">
+    <link href="atom-one-light.css" rel="stylesheet">
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <title>测试文章 - doloop.ml Blog</title>
 </head>
 
 <body class="mdui-theme-primary-blue mdui-theme-accent-blue mdui-appbar-with-toolbar">
@@ -162,23 +167,24 @@ fbi="heab"
 <p>无非就是标题、引用、强调（加粗、斜体、下划线）、插入链接、插入图片、列表（有序和无序列表），甚至连表格都很少用。</p>
 <h3>标题语法</h3>
 <p>Markdown一共支持6个级别大小的标题（对应于HTML语法里的h1~h6），写法很简单，就是在文字前空一格加上#号就行，几个#号就是几级标题，大小由大到小。</p>
-<p>```text</p>
-<h1>第一级标题 <code>&lt;h1&gt;</code></h1>
-<h2>第二级标题 <code>&lt;h2&gt;</code></h2>
-<h6>第六级标题 <code>&lt;h6&gt;</code></h6>
-<p>```</p>
+<div class="codeblock"><pre><code># 第一级标题 `<h1>`
+
+## 第二级标题 `<h2>` 
+
+###### 第六级标题 `<h6>`
+</code></pre></div>
+
 <p>效果如下：</p>
 <h1>第一级标题 <h1></h1>
 <h2>第二级标题 <h2></h2>
 <p>第六级标题 <h6></p>
 <h3>引用语法</h3>
 <p>如果你想引用一段文字，那就使用大于号&gt;</p>
-<p>```text</p>
-<blockquote>
-<p>这是一段引用</p>
-<p>这是另一段引用
-```</p>
-</blockquote>
+<div class="codeblock"><pre><code>> 这是一段引用
+
+> 这是另一段引用
+</code></pre></div>
+
 <p>效果如下：</p>
 <blockquote>
 <p>这是一段引用</p>
@@ -187,55 +193,57 @@ fbi="heab"
 <h3>强调语法</h3>
 <h4>粗体</h4>
 <p>如果你想加粗一段文字，只需要在文字前后加两个*号</p>
-<p><code>text
-**我很重要！**</code></p>
+<div class="codeblock"><pre><code>**我很重要！**
+</code></pre></div>
+
 <p>效果如下：</p>
 <p><strong>我很重要哦！</strong></p>
 <h4>斜体</h4>
 <p>如果你想让一段文字倾斜，只需要在文字前后加一个星号*</p>
-<p><code>text
-*我是比萨斜塔*</code></p>
+<div class="codeblock"><pre><code>*我是比萨斜塔*
+</code></pre></div>
+
 <p>效果如下：</p>
 <p><em>我是比萨斜塔</em></p>
 <h4>下划线</h4>
 <p>如果你想让一段文字加上下划线，只需要在文字前后加一个下划线_</p>
-<p><code>text
-_人是社会性动物_</code></p>
+<div class="codeblock"><pre><code>_人是社会性动物_
+</code></pre></div>
+
 <p>效果如下：</p>
 <p><em>人是社会性动物</em></p>
 <h4>删除线</h4>
 <p>如果你想让一段文字加上删除线效果，只需要在文字前后加一个波浪线~</p>
-<p><code>text
-~~我所说的都是错的~~</code></p>
+<div class="codeblock"><pre><code>~~我所说的都是错的~~
+</code></pre></div>
+
 <p>效果如下：</p>
 <p>我所说的都是错的</p>
 <h3>插入链接</h3>
 <p>如果你想把一段文字加上链接指向到某个网址，就把文字用中括号围起来[]，然后加上一个小括号()，括号里填上网址即可。</p>
-<p><code>text
-[向阳乔木的博客](http://tuijiankan.com)</code></p>
+<div class="codeblock"><pre><code>[向阳乔木的博客](http://tuijiankan.com)
+</code></pre></div>
+
 <p>效果如下：</p>
 <p><a href="https://link.zhihu.com/?target=http%3A//tuijiankan.com">向阳乔木的博客</a></p>
 <h3>插入图片</h3>
 <p>插入图片的语法和插入链接很像，就是在前面加了一个叹号!，注意：叹号是英文叹号。</p>
-<p><code>text
-![百度搜索](https://www.baidu.com/img/bd_logo1.png)</code></p>
+<div class="codeblock"><pre><code>![百度搜索](https://www.baidu.com/img/bd_logo1.png)
+</code></pre></div>
+
 <p>效果如下：</p>
 <p><img alt="img" src="https://pic1.zhimg.com/80/b15c113aeddbeb606d938010b88cf8e6_720w.png" /></p>
 <h3>列表</h3>
 <p>列表分为有序列表和无序列表，什么是有序列表呢？就是1、2、3顺序排开。</p>
 <h4>有序列表</h4>
 <p>语法如下，注意：数字后加点. 再空一格写内容。</p>
-<p>```text
-1. 把冰箱门打开</p>
-<ol>
-<li>
-<p>把大象放进去</p>
-</li>
-<li>
-<p>关上冰箱门
-```</p>
-</li>
-</ol>
+<div class="codeblock"><pre><code>1. 把冰箱门打开
+
+2. 把大象放进去
+
+3. 关上冰箱门
+</code></pre></div>
+
 <p>效果如下：</p>
 <ol>
 <li>把冰箱门打开</li>
@@ -244,19 +252,15 @@ _人是社会性动物_</code></p>
 </ol>
 <h4>无序列表</h4>
 <p>无序列表只需要在文字前面加上减号-就行。（星号*或加号+也可以，看个人喜好，我比较喜欢用减号）</p>
-<p>```text</p>
-<ul>
-<li>
-<p>把冰箱门打开</p>
-</li>
-<li>
-<p>把大象放进去</p>
-</li>
-<li>
-<p>关上冰箱门</p>
-</li>
-</ul>
-<p>```</p>
+<div class="codeblock"><pre><code>
+- 把冰箱门打开
+
+- 把大象放进去
+
+- 关上冰箱门
+
+</code></pre></div>
+
 <p>效果如下：</p>
 <ul>
 <li>把冰箱门打开</li>
@@ -269,10 +273,19 @@ _人是社会性动物_</code></p>
 <p>段落与段落之间需要强制空一行才能分段。</p>
 <h4>分割线</h4>
 <p>你可以在一行中使用三个以上的星号*或减号-来创建分割线（注意：行内不能有其他东西）</p>
-<h2>```text</h2>
-<hr />
-<p>```</p>
+<div class="codeblock"><pre><code>---
+
+***
+</code></pre></div>
+
 <p>效果如下：</p>
+<div class="codeblock"><pre><code># <PRE>
+
+print("HELLOW ORLD!")
+a = "fuck"
+</code></pre></div>
+
+        <div class="spacerl"></div>
     </div>
 
 
