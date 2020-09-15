@@ -33,6 +33,7 @@ def generate_artical(md_path, static_path, article_base_path):
             if f[-3:] == ".md":
                 with open(md_path + "\\" + f, 'r', encoding="utf-8") as fe:
                     c = fe.read()
+                    label = re.findall(r'标(.*?)⋘', c)[0]
                     title = re.findall(r'题(.*?)⋘', c)[0]
                     img = re.findall(r'图(.*?)⋘', c)[0]
                     author = re.findall(r'作(.*?)⋘', c)[0]
@@ -45,7 +46,7 @@ def generate_artical(md_path, static_path, article_base_path):
 
                     with open(article_base_path, 'r', encoding="utf-8") as basef:
                         b = basef.read()
-                        b = b.replace("replace_label", "正文")
+                        b = b.replace("replace_label", label)
                         b = b.replace("replace_title", title)
                         b = b.replace("replace_img", img)
                         b = b.replace("replace_name", author, 1)
