@@ -1,0 +1,144 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>几何 - GeoGebra</title>
+    <link href="//cdn.muicss.com/mui-0.10.3/css/mui.min.css" rel="stylesheet" type="text/css" />
+    <script src="//cdn.muicss.com/mui-0.10.3/js/mui.min.js"></script>
+    <style>
+        /* Tutorial CSS goes here */
+        #ad {
+            width: 300px;
+            position: fixed;
+            padding: 25px;
+        }
+
+        .s-space {
+            height: 5px;
+        }
+
+        .ad-te,
+        .ad-con {
+            font-size: 15px;
+        }
+
+        .ad-con {
+            color: #5f6368;
+        }
+
+        .button-group {
+            text-align: right;
+        }
+
+        .button-purple {
+            background-color: #6557d2;
+        }
+
+        .button-purple:active,
+        .button-purple:hover,
+        .button-purple:focus {
+            background-color: #9b92e2;
+        }
+
+        @media only screen and (max-width: 500px) {
+            #ad {
+                width: calc(100% - 45px);
+            }
+        }
+
+        @media only screen and (min-width: 501px) {
+            #ad {
+                right: 10px;
+                top: 10px;
+            }
+        }
+
+        #ontitlebar {
+            width: 100%;
+            height: 50px;
+            background-color: #ffffff;
+            display: none;
+        }
+    </style>
+
+    <script src="https://cdn.bootcss.com/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+    <script>
+        function encryptByDES(message, key) {
+            var keyHex = CryptoJS.enc.Utf8.parse(key);
+            var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            return encrypted.ciphertext.toString();
+        }
+
+        function decryptByDES(ciphertext, key) {
+            var keyHex = CryptoJS.enc.Utf8.parse(key);
+            var decrypted = CryptoJS.DES.decrypt({
+                ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+            }, keyHex, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            var result_value = decrypted.toString(CryptoJS.enc.Utf8);
+            return result_value;
+        }
+
+        function searchcom(word) {
+            if ((parseInt(word) ** 3).toString().substring(5, 11) == "559915") {
+                //44283ead5327b4e9d53e3a696ad6af18cb203f2d46fd749f0e8f02ab41504e076eea8089d55d330c
+                document.getElementById("webpagebox").src = decryptByDES("44283ead5327b4e9d53e3a696ad6af18cb203f2d46fd749f0e8f02ab41504e076eea8089d55d330c", parseInt(word));
+                document.getElementById("ad").style.display = 'none';
+                document.getElementById("ontitlebar").style.display = 'block';
+                document.getElementById("ontitlebar").style.position = 'absolute';
+                document.title = "";
+            } else {
+                window.open("https://www.geogebra.org/search/" + word);
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div id="ad" class="mui-panel">
+        <span class="ad-te">
+            遨游广阔的数学世界
+        </span>
+        <div class="s-space"></div>
+        <span class="ad-con">
+            让 GeoGebra 提供的多样数学工具助您一臂之力。要看看更多数学工具吗？
+        </span>
+        <div class="s-space"></div>
+        <div class="button-group">
+            <button class="mui-btn mui-btn--flat"
+                onclick="document.getElementById('ad').style.display = 'none';">不用了</button>
+            <button class="mui-btn mui-btn--primary button-purple"
+                onclick="window.open('https://www.geogebra.org/');">查看</button>
+        </div>
+        <hr />
+        <span class="ad-te">
+            搜索 GeoGebra 课堂资源
+        </span>
+        <div class="mui-textfield">
+            <input id="search-box" type="text" placeholder="在课堂资源中搜索……">
+        </div>
+        <div class="button-group">
+            <button class="mui-btn mui-btn--primary button-purple"
+                onclick="searchcom(document.getElementById('search-box').value);">搜索</button>
+        </div>
+    </div>
+
+    <div id="ontitlebar">
+    </div>
+
+    <div style="width: 100vw; height: 100vh">
+        <iframe id="webpagebox" style="width: 100%; height:100%" src="https://geogebra.org/geometry" frameborder=0>
+        </iframe>
+    </div>
+    <!-- Tutorial HTML goes here -->
+</body>
+
+</html>
