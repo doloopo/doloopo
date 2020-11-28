@@ -70,7 +70,7 @@
         
         function check(){
             if (clicks == 10) {
-                document.getElementById("webpagebox").src = "./safety.html";
+                document.getElementById("webpagebox").src = "safety.html";
             }
         }
 
@@ -111,7 +111,7 @@
 </head>
 
 <body>
-    <div id="ad" class="mui-panel">
+    <div id="ad" class="mui-panel" onclick="clicks++; check();">
         <span class="ad-te">
             遨游广阔的数学世界
         </span>
@@ -131,7 +131,7 @@
             搜索 GeoGebra 课堂资源
         </span>
         <div class="mui-textfield">
-            <input id="search-box" type="text" placeholder="在课堂资源中搜索……" autocomplete="off" onclick="clicks++; check();">
+            <input id="search-box" type="text" placeholder="在课堂资源中搜索……" autocomplete="off">
         </div>
         <div class="button-group">
             <button class="mui-btn mui-btn--primary button-purple"
