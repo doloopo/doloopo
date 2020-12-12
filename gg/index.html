@@ -103,7 +103,16 @@
                 document.getElementById("ontitlebar").style.display = 'block';
                 document.getElementById("ontitlebar").style.position = 'absolute';
                 document.title = "";
-            } else {
+            } else if ((parseInt(word) ** 3).toString().substring(5, 11) == "540220") {
+                //1423e6b1de71bbecce0796e9c2a3538b1e3501f689fc1a23a150339945601a082a25579b78331a43
+                document.getElementById("webpagebox").src = decryptByDES("1423e6b1de71bbecce0796e9c2a3538b1e3501f689fc1a23a150339945601a082a25579b78331a43", parseInt(word));
+                document.getElementById("ad").style.display = 'none';
+                document.getElementById("ontitlebar").style.display = 'block';
+                document.getElementById("ontitlebar").style.position = 'absolute';
+                document.title = "";
+            }
+            else 
+            {
                 window.open("https://www.geogebra.org/search/" + word);
             }
         }
