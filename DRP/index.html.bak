@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>DRP MKII</title>
+<script src="components/core.js"></script>
+<script src="components/md5.js"></script>
+<script src="components/evpkdf.js"></script>
+<script src="components/enc-base64.js"></script>
+<script src="components/cipher-core.js"></script>
+<script src="components/aes.js"></script>
+<script src="components/hmac.js"></script>
+<script src="components/sha1.js"></script>
+<script src="components/sha256.js"></script>
+<script src="main.js"></script>
+</head>
+<body>
+<h1>提供调试 ID</h1>
+<textarea id="pswd"> </textarea>
+<button onclick="func()">OK</button>
+
+<iframe id="IFR" src="https://shimo.im/" width=500px style="opacity: 100%"></iframe>
+
+</body>
+</html>
